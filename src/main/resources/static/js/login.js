@@ -29,7 +29,7 @@ var vm = new Vue({
                         console.log(res);
                         if (res.data.success) {
                             _this.$message({type: 'success', message: res.data.message});
-                            window.location.href = "im";
+                            window.location.href = "index";
                         } else {
                             _this.$message.error(res.data.message);
                         }
