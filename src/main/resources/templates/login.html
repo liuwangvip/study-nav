@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/element/element.css">
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+<body>
+<div id="app">
+    <el-container>
+        <el-header class="fd-head" height="40px">
+            <div class="fd-head-title">
+                登录
+            </div>
+        </el-header>
+        <el-main>
+            <div class="fd-content-bg"></div>
+            <div class="fd-content">
+                <div class="fd-content-head"></div>
+                <div style="text-align: left">
+                    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px"
+                             class="demo-ruleForm">
+                        <el-form-item label="用户名" prop="username">
+                            <el-input v-model="ruleForm.username"></el-input>
+                        </el-form-item>
+                        <el-form-item label="密码" prop="password">
+                            <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="记住密码" prop="rememberMe">
+                            <el-switch style="text-align: left;" v-model="ruleForm.rememberMe"></el-switch>
+                        </el-form-item>
+                        <el-form-item>
+                            <div class="fd-login-btn" @click="login('ruleForm')">登录</div>
+                        </el-form-item>
+                    </el-form>
+                </div>
+
+            </div>
+
+        </el-main>
+        <el-footer class="fd-footer" height="auto">
+            <p class="copy-right">
+                Copyright &copy; 2020-2022@ISOLER
+            </p>
+        </el-footer>
+    </el-container>
+</div>
+
+</body>
+<!-- import Vue before Element -->
+<script src="js/vue/vue.min.js"></script>
+<!-- import JavaScript -->
+<script src="js/element/element.js"></script>
+<script src="js/axios/axios.min.js"></script>
+<script src="js/login.js"></script>
+</html>

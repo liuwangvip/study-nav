@@ -1,4 +1,4 @@
-package com.isoler.studynav.common.config;
+package com.isoler.studynav.common.security;
 
 import com.isoler.studynav.common.handler.MyAuthenticationFailureHandler;
 import com.isoler.studynav.common.handler.MyAuthenticationSuccessHandler;

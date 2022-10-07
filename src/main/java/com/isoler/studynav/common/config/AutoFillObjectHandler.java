@@ -1,7 +1,7 @@
 package com.isoler.studynav.common.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.isoler.studynav.business.user.model.bean.SysUser;
+import com.isoler.studynav.common.security.model.SysUser;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;

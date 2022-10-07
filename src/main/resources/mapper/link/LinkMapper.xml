@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoler.studynav.business.link.mapper.LinkMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.isoler.studynav.business.link.model.bean.Link">
+        <id column="c_id" property="id" />
+        <result column="c_fl_id" property="flId" />
+        <result column="c_name" property="name" />
+        <result column="c_logo" property="logo" />
+        <result column="c_description" property="description" />
+        <result column="c_url" property="url" />
+        <result column="n_read" property="read" />
+        <result column="n_star" property="star" />
+        <result column="n_order" property="order" />
+        <result column="dt_create_time" property="createTime" />
+        <result column="dt_update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        c_id, c_fl_id, c_name, c_logo, c_description, c_url, n_read, n_star, n_order, dt_create_time, dt_update_time
+    </sql>
+
+</mapper>
