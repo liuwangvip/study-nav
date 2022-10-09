@@ -1,0 +1,337 @@
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.58;
+    color: #333;
+    background-color: #2b2b2b;
+    height: 100%;
+}
+
+
+/* 定义滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 5px;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 0px rgba(240, 240, 240, 0.5);
+    border-radius: 10px;
+    background-color: rgba(50, 50, 50, .1);
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 0px rgba(240, 240, 240, 0.5);
+    background-color: rgba(50, 50, 50, .3);
+}
+
+#app {
+    width: 100%;
+    height: 100%;
+}
+
+#app > .el-container {
+    height: 100vh;
+}
+
+/**
+ * 整体布局的头部区域-- 标题
+ */
+.fd-head {
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+    padding: 0px;
+    background-color: #3c3f41;
+    color: #e8e8e8;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.fd-head .fd-head-title {
+    width: 100%;
+    padding: 0px 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fd-head .fd-head-title .fd-head-more {
+    padding-top: 10px;
+    cursor: pointer;
+}
+
+.fd-left-nav {
+    height: 100%;
+}
+
+.fd-left-nav .el-menu {
+    border-right: solid 1px #393838;
+}
+
+.fd-link-container {
+    height: calc(100vh - 400px);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.fd-fl-container {
+    padding-top: 20px;
+}
+
+.fd-fl-container .fd-fl-title {
+    padding-left: 10px;
+    color: #f9f9f9;
+    font-weight: bold;
+}
+
+.fd-fl-container .fd-fl-main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+.fd-link-card {
+    width: 300px;
+    height: 150px;
+    padding: 0px;
+    margin: 10px 10px;
+    background-color: #3c3f41;
+}
+
+
+.fd-link-card .el-card__header {
+    padding: 0px;
+}
+
+.fd-link-card .el-card__body {
+    padding: 5px 20px;
+}
+
+
+.fd-link-card-header {
+    padding: 0px 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fd-link-card-header-title {
+    color: #f2e9e9;
+    font-size: 16px;
+    font-weight: bold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    overflow: hidden;
+}
+
+.fd-link-logo {
+    padding: 7px 0px;
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
+.fd-link-header {
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.hero-circle {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    position: relative;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 1px 8px rgba(34, 34, 34, 0.3), inset 0 1px 8px rgba(34, 34, 34, 0.3);
+    background: url(../img/clock/bg.png) 0 50%
+}
+
+.hero-face {
+    width: 100%;
+    height: 100%
+}
+
+.hero-face:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    margin: -6px 0 0 -6px;
+    background: #fff;
+    border-radius: 6px;
+    content: "";
+    display: block
+}
+
+.hero-hour {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -4px 0 -4px -25%;
+    padding: 4px 0 4px 25%;
+    background: #fff;
+    -ms-transform-origin: 100% 50%;
+    transform-origin: 100% 50%;
+    border-radius: 4px 0 0 4px
+}
+
+.hero-minute {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -40% -3px 0;
+    padding: 40% 3px 0;
+    background: #fff;
+    -ms-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    border-radius: 3px 3px 0 0
+}
+
+.hero-second {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -40% -1px 0 0;
+    padding: 40% 1px 0;
+    background: #fff;
+    -ms-transform-origin: 50% 100%;
+    transform-origin: 50% 100%
+}
+
+
+.fd-search {
+    padding: 10px 0px;
+    margin: 0 auto;
+    width: 60%;
+}
+
+
+.fd-link-card-content {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.fd-link-card-content .fd-link-card-content-text {
+    color: #bbbbbb;
+    margin: 0px;
+    white-space: pre-line;
+    font-size: 13px;
+}
+
+/**
+ * 整体布局的底部区域-- 版本信息
+ */
+.fd-footer {
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+    font-size: 12px;
+    color: #f5f5f5;
+    text-align: center;
+    background-color: #3c3f41;
+    line-height: 30px;
+}
+
+.fd-footer .copy-right {
+    margin: 0px;
+}
+
+/**
+ * showMore  start
+ */
+.fd-drawer-container {
+    padding: 20px;
+    height: 100%;
+    width: 100%;
+}
+
+.fd-drawer-container .fd-user {
+    height: 300px;
+    background-color: #FFF;
+}
+
+.fd-user .fd-user-list {
+    padding-left: 20px;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.fd-drawer-container .fd-user .fd-user-list .fd-user-item {
+    margin-right: 20px;
+    margin-bottom: 20px;
+    line-height: 20px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.fd-drawer-container .fd-user .fd-user-list .fd-user-item .el-avatar {
+    background-color: transparent !important;
+}
+
+.fd-user .fd-user-search {
+    padding: 20px 20px;
+}
+
+
+.fd-drawer-container .fd-msg-box {
+    padding: 20px;
+}
+
+.fd-drawer-container .fd-msg-box .fd-msg-box-title {
+    font-size: 15px;
+    line-height: 22px;
+    color: #000000;
+}
+
+.fd-drawer-container .fd-msg-box .fd-msg-box-dsc {
+    padding-top: 10px;
+    font-size: 14px;
+    color: #a2a0a0;
+    line-height: 20px;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}

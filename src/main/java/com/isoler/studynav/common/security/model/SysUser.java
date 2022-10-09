@@ -27,7 +27,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("db_chat.t_sys_user")
+@TableName("db_nav.t_sys_user")
 @ApiModel(value = "SysUser对象", description = "系统用户表")
 public class SysUser extends BaseEntity implements UserDetails {
 
