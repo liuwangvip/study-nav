@@ -1,10 +1,17 @@
 package com.isoler.studynav.business.fl.service.impl;
 
-import com.isoler.studynav.business.fl.model.bean.Fl;
-import com.isoler.studynav.business.fl.mapper.FlMapper;
-import com.isoler.studynav.business.fl.service.IFlService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.isoler.studynav.business.fl.mapper.FlMapper;
+import com.isoler.studynav.business.fl.model.bean.Fl;
+import com.isoler.studynav.business.fl.model.qo.FlPageQo;
+import com.isoler.studynav.business.fl.model.qo.FlQo;
+import com.isoler.studynav.business.fl.service.IFlService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +24,45 @@ import org.springframework.stereotype.Service;
 @Service
 public class FlServiceImpl extends ServiceImpl<FlMapper, Fl> implements IFlService {
 
+    @Override
+    public List<Fl> listFl(FlQo qo) {
+        return baseMapper.listFl(qo);
+    }
+
+    @Override
+    public List<Fl> listFlRec(FlQo qo) {
+        return baseMapper.listFlRec(qo);
+    }
+
+    @Override
+    public Page<Fl> pageFl(FlPageQo qo) {
+        Page<Fl> page = new Page<>(qo.getCurrent(), qo.getSize());
+        FlQo params = new FlQo();
+        BeanUtils.copyProperties(qo, params);
+        page.setRecords(baseMapper.listFl(page, params));
+        return page;
+    }
+
+    @Override
+    public Fl saveOrUpdateFl(Fl fl) {
+        this.saveOrUpdate(fl);
+        baseMapper.updateMaxXh(fl.getId());
+        return fl;
+    }
+
+    @Override
+    public void deleteFlById(String id) {
+        this.removeById(id);
+    }
+
+    @Override
+    public void switchXh(String one, String other) {
+        Fl oneFl = this.getById(one);
+        Fl otherFl = this.getById(other);
+        Integer tmp = oneFl.getXh();
+        oneFl.setXh(otherFl.getXh());
+        otherFl.setXh(tmp);
+        this.updateById(oneFl);
+        this.updateById(otherFl);
+    }
 }

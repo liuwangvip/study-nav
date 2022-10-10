@@ -89,12 +89,42 @@ var vm = new Vue({
             this.navType = key;
             console.log(key);
         },
+
+        loadFlData: function () {
+            var _this = this;
+            var param = {
+                current: this.fl.current,
+                size: this.fl.size,
+                searchText: this.fl.searchText
+            };
+            axios.post("fl/page", param).then(function (res) {
+                _this.fl.data = res.data.result.records;
+                _this.fl.total = res.data.result.total;
+            }).catch(function (e) {
+                console.log(e);
+                _this.$message.error("获取分类列表失败");
+            });
+        },
         searchFl: function () {
             if (this.fl.searchText == "") {
                 this.$message("搜索的内容不能为空");
                 return;
             }
-            this.$message("开发中...");
+            this.fl.current = 1;
+            this.fl.size = 10;
+            var param = {
+                current: this.fl.current,
+                size: this.fl.size,
+                searchText: this.fl.searchText
+            };
+            var _this = this;
+            axios.post("fl/page", param).then(function (res) {
+                _this.fl.data = res.data.result.records;
+                _this.fl.total = res.data.result.total;
+            }).catch(function (e) {
+                console.log(e);
+                _this.$message.error("获取分类列表失败");
+            });
         },
         handleFlView: function (row) {
             this.$message("查看，开发中...");
@@ -115,7 +145,7 @@ var vm = new Vue({
         handleFlSizeChange: function (val) {
             this.fl.current = 1;
             this.fl.size = val;
-            // this.loadLinkList();
+            this.loadFlData();
         },
         /**
          * 翻页
@@ -123,14 +153,44 @@ var vm = new Vue({
          */
         handleFlPageChange: function (val) {
             this.fl.current = val;
-            // this.loadLinkList();
+            this.loadFlData();
+        },
+
+        loadLinkData: function () {
+            var _this = this;
+            var param = {
+                current: this.link.current,
+                size: this.link.size,
+                searchText: this.link.searchText
+            };
+            axios.post("link/page", param).then(function (res) {
+                _this.link.data = res.data.result.records;
+                _this.linktotal = res.data.result.total;
+            }).catch(function (e) {
+                console.log(e);
+                _this.$message.error("获取网址列表失败");
+            });
         },
         searchLink: function () {
             if (this.link.searchText == "") {
                 this.$message("搜索的内容不能为空");
                 return;
             }
-            this.$message("开发中...");
+            this.link.current = 1;
+            this.link.size = 10;
+            var param = {
+                current: this.link.current,
+                size: this.link.size,
+                searchText: this.link.searchText
+            };
+            var _this = this;
+            axios.post("link/page", param).then(function (res) {
+                _this.link.data = res.data.result.records;
+                _this.link.total = res.data.result.total;
+            }).catch(function (e) {
+                console.log(e);
+                _this.$message.error("获取网址列表失败");
+            });
         },
         handleLinkAdd: function (row) {
             this.$message("新增，开发中...");
@@ -151,7 +211,7 @@ var vm = new Vue({
         handleLinkSizeChange: function (val) {
             this.link.current = 1;
             this.link.size = val;
-            // this.loadLinkList();
+            this.loadLinkData();
         },
         /**
          * 翻页
@@ -159,13 +219,14 @@ var vm = new Vue({
          */
         handleLinkPageChange: function (val) {
             this.link.current = val;
-            // this.loadLinkList();
+            this.loadLinkData();
         }
 
     }
     ,
     created: function () {
-
+        // this.loadFlData();
+        // this.loadLinkData();
     }
     ,
     mounted: function () {

@@ -55,7 +55,11 @@ public class Link extends BaseEntity {
 
     @ApiModelProperty(value = "网址排序")
     @TableField("n_order")
-    private Integer order;
+    private Integer xh;
+
+    @ApiModelProperty(value = "分类名称")
+    @TableField(exist = false)
+    private String flName;
 
 
 }

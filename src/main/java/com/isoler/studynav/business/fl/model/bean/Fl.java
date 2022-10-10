@@ -2,12 +2,15 @@ package com.isoler.studynav.business.fl.model.bean;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.isoler.studynav.business.link.model.bean.Link;
 import com.isoler.studynav.common.model.bean.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.util.List;
 
 /**
  * <p>
@@ -43,7 +46,11 @@ public class Fl extends BaseEntity {
 
     @ApiModelProperty(value = "排序")
     @TableField("n_order")
-    private Integer order;
+    private Integer xh;
+
+    @ApiModelProperty(value = "网址列表")
+    @TableField(exist = false)
+    private List<Link> links;
 
 
 }

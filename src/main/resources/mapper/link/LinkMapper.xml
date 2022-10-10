@@ -7,12 +7,13 @@
         <id column="c_id" property="id" />
         <result column="c_fl_id" property="flId" />
         <result column="c_name" property="name" />
+        <result column="c_fl_name" property="flName" />
         <result column="c_logo" property="logo" />
         <result column="c_description" property="description" />
         <result column="c_url" property="url" />
         <result column="n_read" property="read" />
         <result column="n_star" property="star" />
-        <result column="n_order" property="order" />
+        <result column="n_order" property="xh" />
         <result column="dt_create_time" property="createTime" />
         <result column="dt_update_time" property="updateTime" />
     </resultMap>
@@ -21,5 +22,33 @@
     <sql id="Base_Column_List">
         c_id, c_fl_id, c_name, c_logo, c_description, c_url, n_read, n_star, n_order, dt_create_time, dt_update_time
     </sql>
+
+    <sql id="Base_Column_List_Prefix">
+        link.c_id, link.c_fl_id, link.c_name, link.c_logo, link.c_description, link.c_url, link.n_read, link.n_star, link.n_order, link.dt_create_time, link.dt_update_time
+    </sql>
+    <update id="updateMaxXh">
+        update db_nav.t_link set n_order = (
+            select
+                   coalesce(max(n_order),0)+1
+            from db_nav.t_link
+        )
+        <where>
+            and c_id =#{id}
+        </where>
+    </update>
+
+    <select id="listLink" resultType="com.isoler.studynav.business.link.model.bean.Link">
+        select
+        <include refid="Base_Column_List_Prefix"></include>
+        from db_nav.t_link link
+        left join db_nav.t_fl fl on link.c_fl_id = fl.c_id
+        <where>
+            <if test="qo.searchText!=null and qo.searchText!=''">
+                <bind name="searchText" value="'%'+ qo.searchText + '%'"/>
+                and (link.c_name like #{searchText} or link.c_description like #{searchText})
+            </if>
+        </where>
+        order by n_order asc
+    </select>
 
 </mapper>

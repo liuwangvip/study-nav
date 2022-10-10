@@ -4,19 +4,73 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.isoler.studynav.business.fl.model.bean.Fl">
-        <id column="c_id" property="id" />
-        <result column="c_parent_id" property="parentId" />
-        <result column="c_name" property="name" />
-        <result column="c_description" property="description" />
-        <result column="c_icon" property="icon" />
-        <result column="n_order" property="order" />
-        <result column="dt_create_time" property="createTime" />
-        <result column="dt_update_time" property="updateTime" />
+        <id column="c_id" property="id"/>
+        <result column="c_parent_id" property="parentId"/>
+        <result column="c_name" property="name"/>
+        <result column="c_description" property="description"/>
+        <result column="c_icon" property="icon"/>
+        <result column="n_order" property="xh"/>
+        <result column="dt_create_time" property="createTime"/>
+        <result column="dt_update_time" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="BaseVo" type="com.isoler.studynav.business.fl.model.bean.Fl" extends="BaseResultMap">
+        <collection property="links" ofType="com.isoler.studynav.business.link.model.bean.Link">
+            <id column="c_link_id" property="id"/>
+            <result column="c_fl_id" property="flId"/>
+            <result column="c_link_name" property="name"/>
+            <result column="c_logo" property="logo"/>
+            <result column="c_link_description" property="description"/>
+            <result column="c_url" property="url"/>
+            <result column="n_read" property="read"/>
+            <result column="n_star" property="star"/>
+        </collection>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         c_id, c_parent_id, c_name, c_description, c_icon, n_order, dt_create_time, dt_update_time
     </sql>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List_Prefix">
+        fl.c_id, fl.c_parent_id, fl.c_name, fl.c_description, fl.c_icon, fl.n_order, fl.dt_create_time, fl.dt_update_time
+    </sql>
+
+    <update id="updateMaxXh">
+        update db_nav.t_fl set n_order = (
+        select
+        coalesce(max(n_order),0)+1
+        from db_nav.t_fl
+        )
+        <where>
+            and c_id =#{id}
+        </where>
+    </update>
+    <select id="listFl" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from db_nav.t_fl
+        <where>
+            <if test="qo.searchText!=null and qo.searchText!=''">
+                <bind name="searchText" value="'%'+ qo.searchText + '%'"/>
+                and (c_name like #{searchText} or c_description like #{searchText})
+            </if>
+        </where>
+        order by n_order asc
+    </select>
+    <select id="listFlRec" resultMap="BaseVo">
+        select
+        <include refid="Base_Column_List_Prefix"></include>
+        from db_nav.t_fl fl
+        left join db_nav.t_link link on fl.c_id = link.c_fl_id
+        <where>
+            <if test="qo.searchText!=null and qo.searchText!=''">
+                <bind name="searchText" value="'%'+ qo.searchText + '%'"/>
+                and (fl.c_name like #{searchText} or fl.c_description like #{searchText} or link.c_name like #{searchText} or link.c_description like #{searchText})
+            </if>
+        </where>
+        order by fl.n_order asc,link.n_order asc
+    </select>
 
 </mapper>
