@@ -25,8 +25,9 @@ body {
 /*定义滚动条轨道 内阴影+圆角*/
 ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 0px rgba(240, 240, 240, 0.5);
-    border-radius: 10px;
-    background-color: rgba(50, 50, 50, .1);
+    border-top-right-radius: 5px;
+    /*border-radius: 0px;*/
+    background-color: #FFFFFF;
 }
 
 /*定义滑块 内阴影+圆角*/
@@ -82,55 +83,32 @@ body {
     border-right: solid 1px #393838;
 }
 
-.fd-link-container {
-    height: calc(100vh - 400px);
-    margin-bottom: 20px;
+.fd-main-container {
+    padding: 20px;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: center;
 }
 
-.fd-fl-container {
-    padding-top: 20px;
+.fd-main-container .fd-main-header {
+
 }
 
-.fd-fl-container .fd-fl-title {
-    padding-left: 10px;
-    color: #f9f9f9;
-    font-weight: bold;
-}
-
-.fd-fl-container .fd-fl-main {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-
-.fd-link-card {
-    width: 300px;
-    height: 150px;
+.fd-main-container .fd-main-content {
     padding: 0px;
-    margin: 10px 10px;
-    background-color: #3c3f41;
+    height: calc(100vh - 220px);
+    overflow-y: scroll;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    background-color: #f9f9f9;
 }
 
-
-.fd-link-card .el-card__header {
-    padding: 0px;
-}
-
-.fd-link-card .el-card__body {
-    padding: 5px 20px;
-}
-
-
-.fd-link-card-header {
-    padding: 0px 20px;
+.fd-main-content-title {
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    padding: 10px 20px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -138,95 +116,17 @@ body {
     align-items: center;
 }
 
-.fd-link-card-header-title {
-    color: #f2e9e9;
-    font-size: 16px;
-    font-weight: bold;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    max-width: 200px;
-    overflow: hidden;
+.operate-item {
+    padding: 0px 5px;
 }
 
-.fd-link-logo {
-    padding: 7px 0px;
-    vertical-align: middle;
-    border-radius: 50%;
-}
-
-.fd-link-header {
-    padding: 10px 20px;
+.fd-main-container .fd-main-footer {
+    padding: 10px 20px !important;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     text-align: center;
-}
-
-.hero-circle {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto;
-    position: relative;
-    border: 4px solid #fff;
-    border-radius: 50%;
-    box-shadow: 0 1px 8px rgba(34, 34, 34, 0.3), inset 0 1px 8px rgba(34, 34, 34, 0.3);
-    background: url(../img/clock/bg.png) 0 50%
-}
-
-.hero-face {
-    width: 100%;
-    height: 100%
-}
-
-.hero-face:after {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 12px;
-    height: 12px;
-    margin: -6px 0 0 -6px;
-    background: #fff;
-    border-radius: 6px;
-    content: "";
-    display: block
-}
-
-.hero-hour {
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -4px 0 -4px -25%;
-    padding: 4px 0 4px 25%;
-    background: #fff;
-    -ms-transform-origin: 100% 50%;
-    transform-origin: 100% 50%;
-    border-radius: 4px 0 0 4px
-}
-
-.hero-minute {
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -40% -3px 0;
-    padding: 40% 3px 0;
-    background: #fff;
-    -ms-transform-origin: 50% 100%;
-    transform-origin: 50% 100%;
-    border-radius: 3px 3px 0 0
-}
-
-.hero-second {
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -40% -1px 0 0;
-    padding: 40% 1px 0;
-    background: #fff;
-    -ms-transform-origin: 50% 100%;
-    transform-origin: 50% 100%
+    background-color: #FFFFFF;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 
@@ -236,20 +136,6 @@ body {
     width: 60%;
 }
 
-
-.fd-link-card-content {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
-}
-
-.fd-link-card-content .fd-link-card-content-text {
-    color: #bbbbbb;
-    margin: 0px;
-    white-space: pre-line;
-    font-size: 13px;
-}
 
 /**
  * 整体布局的底部区域-- 版本信息

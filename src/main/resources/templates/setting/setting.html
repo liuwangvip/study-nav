@@ -12,22 +12,22 @@
 <div id="app">
     <el-container>
         <el-aside width="auto">
-            <el-menu default-active="1-4-1" background-color="#3c3f41" text-color="#f5f5f5" class="fd-left-nav"
-                     @open="handleOpen" @close="handleClose"
+            <el-menu :default-active="navType" background-color="#3c3f41" text-color="#f5f5f5" class="fd-left-nav"
+                      @select="handleSelect"
                      :collapse="isCollapse">
-                <el-menu-item index="1">
+                <el-menu-item index="fl">
                     <i class="el-icon-menu"></i>
                     <span slot="title">分类</span>
                 </el-menu-item>
-                <el-menu-item index="2">
+                <el-menu-item index="link">
                     <i class="el-icon-menu"></i>
                     <span slot="title">网址</span>
                 </el-menu-item>
-                <el-menu-item index="3" disabled>
+                <el-menu-item index="document">
                     <i class="el-icon-document"></i>
                     <span slot="title">文档</span>
                 </el-menu-item>
-                <el-menu-item index="4">
+                <el-menu-item index="setting">
                     <i class="el-icon-setting"></i>
                     <span slot="title">设置</span>
                 </el-menu-item>
@@ -38,63 +38,131 @@
                 <div class="fd-head-title">
                     <div>
                         <i class="el-icon-menu" style="cursor: pointer" @click="changeCollapse"></i>
-                        <span style="padding-left: 10px">网址导航</span>
-                    </div>
-                    <div class="fd-head-more" @click="showMore">
-                        <svg t="1664568892984" class="icon" viewBox="0 0 1024 1024" version="1.1"
-                             xmlns="http://www.w3.org/2000/svg" p-id="12289" width="16" height="16">
-                            <path d="M197.844997 512m-74.694189 0a72.993 72.993 0 1 0 149.388379 0 72.993 72.993 0 1 0-149.388379 0ZM512 512m-74.694189 0a72.993 72.993 0 1 0 149.388379 0 72.993 72.993 0 1 0-149.388379 0ZM826.155003 512m-74.694189 0a72.993 72.993 0 1 0 149.388379 0 72.993 72.993 0 1 0-149.388379 0Z"
-                                  p-id="12290"></path>
-                        </svg>
+                        <span style="padding-left: 10px">网址导航-管理页面</span>
                     </div>
                 </div>
             </el-header>
-            <el-container>
-                <el-header class="fd-link-header" height="200px">
-                    <div class="fd-search">
-                        <el-input @keyup.enter.native="search" size="medium"
-                                  prefix-icon="el-icon-search"
-                                  placeholder="搜索" v-model="searchText"
-                                  class="input-with-select">
-                        </el-input>
-                    </div>
-                </el-header>
-                <el-main style="padding: 0px 10px">
-                    <div class="fd-link-container">
-                        <template v-for="index in 3" :key="index">
-                            <div class="fd-fl-container">
-                                <div class="fd-fl-title">开发环境</div>
-                                <div class="fd-fl-main">
-                                    <template v-for="index in 10" :key="index">
-                                        <el-card class="fd-link-card" shadow="hover">
-                                            <div slot="header" class="fd-link-card-header">
-                                                <div class="fd-link-card-header-img">
-                                                    <el-avatar
-                                                            style="vertical-align: middle;background-color: transparent"
-                                                            :size="50"
-                                                            fit="fill"
-                                                            src="img/logos/feature.png" @error="true">
-                                                        <img src="img/logos/error.png">
-                                                    </el-avatar>
-                                                </div>
-                                                <div class="fd-link-card-header-title"
-                                                     title="文件服务文件服务文件服务文件服务文件服务文件服务文件服务文件服务文件服务文件服务">
-                                                    文件服务文件服务文件服务文件服务文件服务文件服务文件服务文件服务文件服务文件服务{{index}}
-                                                </div>
-                                            </div>
-                                            <div class="fd-link-card-content">
-                                                <p class="fd-link-card-content-text">文件服务-转换服务-sonarqube
-                                                    文件服务-转换服务-sonarqube
-                                                    文件服务-转换服务-sonarqubev文件服务-转换服务-sonarqubev文件服务-转换服务-sonarqubev文件服务-转换服务-sonarqubev
-                                                </p>
-                                            </div>
-                                        </el-card>
-                                    </template>
-                                </div>
+            <el-container class="fd-main-container">
+                <div v-if="navType=='fl'" style="width: 100%">
+                    <el-header class="fd-main-header" height="60px">
+                        <div class="fd-search">
+                            <el-input @keyup.enter.native="searchFl" size="medium"
+                                      prefix-icon="el-icon-search"
+                                      placeholder="搜索" v-model="fl.searchText"
+                                      class="input-with-select">
+                            </el-input>
+                        </div>
+                    </el-header>
+                    <el-main class="fd-main-content">
+                        <div class="fd-main-content-title">
+                            <div style="font-weight: bold;font-size: 16px">
+                                <i class="el-icon-price-tag"></i>
+                                分类管理
                             </div>
-                        </template>
-                    </div>
-                </el-main>
+                            <div style="padding-right: 50px">
+                                <el-tooltip class="item" effect="dark" content="新增" placement="bottom-end">
+                                    <el-link style="color:green" :underline="false" @click="handleFlEdit(scope.row)"
+                                             icon="el-icon-plus"></el-link>
+                                </el-tooltip>
+                            </div>
+                        </div>
+                        <el-table :data="fl.data" stripe style="width: 100%">
+                            <el-table-column prop="name" label="名称" width="180"></el-table-column>
+                            <el-table-column prop="desc" label="说明"></el-table-column>
+                            <el-table-column prop="address" label="时间" width="180"></el-table-column>
+                            <el-table-column fixed="right" label="操作" width="100">
+                                <template slot-scope="scope">
+                                    <el-tooltip class="operate-item" effect="dark" content="查看" placement="bottom-end">
+                                        <el-link :underline="false" @click="handleFlView(scope.row)"
+                                                 icon="el-icon-view">
+                                        </el-link>
+                                    </el-tooltip>
+                                    <el-tooltip class="operate-item" effect="dark" content="编辑" placement="bottom-end">
+                                        <el-link :underline="false" @click="handleFlEdit(scope.row)"
+                                                 icon="el-icon-edit"></el-link>
+                                    </el-tooltip>
+                                    <el-tooltip class="operate-item" effect="dark" content="删除" placement="bottom-end">
+                                        <el-link :underline="false" @click="handleFlDel(scope.row)"
+                                                 icon="el-icon-delete">
+                                        </el-link>
+                                    </el-tooltip>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </el-main>
+                    <el-footer class="fd-main-footer" height="50px">
+                        <el-pagination
+                                small="true"
+                                @size-change="handleFlSizeChange"
+                                @current-change="handleFlPageChange"
+                                :current-page="fl.current"
+                                :page-sizes="[10, 20, 50]"
+                                :page-size="fl.size"
+                                :total="fl.total"
+                                layout="total, prev, pager, next, sizes">
+                        </el-pagination>
+                    </el-footer>
+                </div>
+                <div v-if="navType=='link'"style="width: 100%">
+                    <el-header class="fd-main-header" height="60px">
+                        <div class="fd-search">
+                            <el-input @keyup.enter.native="searchLink" size="medium"
+                                      prefix-icon="el-icon-search"
+                                      placeholder="搜索" v-model="link.searchText"
+                                      class="input-with-select">
+                            </el-input>
+                        </div>
+                    </el-header>
+                    <el-main class="fd-main-content">
+                        <div class="fd-main-content-title">
+                            <div style="font-weight: bold;font-size: 16px">
+                                <i class="el-icon-link"></i>
+                                网址链接
+                            </div>
+                            <div style="padding-right: 50px">
+                                <el-tooltip class="item" effect="dark" content="新增" placement="bottom-end">
+                                    <el-link style="color:green" :underline="false" @click="handleLinkAdd"
+                                             icon="el-icon-plus"></el-link>
+                                </el-tooltip>
+                            </div>
+                        </div>
+                        <el-table :data="fl.data" stripe style="width: 100%">
+                            <el-table-column prop="name" label="名称" width="180"></el-table-column>
+                            <el-table-column prop="desc" label="说明"></el-table-column>
+                            <el-table-column prop="address" label="时间" width="180"></el-table-column>
+                            <el-table-column fixed="right" label="操作" width="100">
+                                <template slot-scope="scope">
+                                    <el-tooltip class="operate-item" effect="dark" content="查看" placement="bottom-end">
+                                        <el-link :underline="false" @click="handleLinkView(scope.row)"
+                                                 icon="el-icon-view">
+                                        </el-link>
+                                    </el-tooltip>
+                                    <el-tooltip class="operate-item" effect="dark" content="编辑" placement="bottom-end">
+                                        <el-link :underline="false" @click="handleLinkEdit(scope.row)"
+                                                 icon="el-icon-edit"></el-link>
+                                    </el-tooltip>
+                                    <el-tooltip class="operate-item" effect="dark" content="删除" placement="bottom-end">
+                                        <el-link :underline="false" @click="handleLinkDel(scope.row)"
+                                                 icon="el-icon-delete">
+                                        </el-link>
+                                    </el-tooltip>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </el-main>
+                    <el-footer class="fd-main-footer" height="50px">
+                        <el-pagination
+                                small="true"
+                                @size-change="handleFlSizeChange"
+                                @current-change="handleFlPageChange"
+                                :current-page="fl.current"
+                                :page-sizes="[10, 20, 50]"
+                                :page-size="fl.size"
+                                :total="fl.total"
+                                layout="total, prev, pager, next, sizes">
+                        </el-pagination>
+                    </el-footer>
+                </div>
             </el-container>
             <el-footer class="fd-footer" height="30px">
                 <p class="copy-right">

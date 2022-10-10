@@ -21,13 +21,13 @@ public class PageController {
     }
 
     /**
-     * 首页面
+     * 后台管理页面
      *
      * @return
      */
-    @GetMapping({"", "setting"})
+    @GetMapping("setting")
     public String getSettingPage() {
-        return "setting";
+        return "setting/setting";
     }
 
 
