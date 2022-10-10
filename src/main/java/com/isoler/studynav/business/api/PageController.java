@@ -20,6 +20,16 @@ public class PageController {
         return "index";
     }
 
+    /**
+     * 首页面
+     *
+     * @return
+     */
+    @GetMapping({"", "setting"})
+    public String getSettingPage() {
+        return "setting";
+    }
+
 
     /**
      * 登录页

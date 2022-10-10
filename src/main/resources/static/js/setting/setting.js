@@ -24,8 +24,6 @@ var vm = new Vue({
             }
         }
     },
-    computed: {},
-
     methods: {
         /**
          * 展开/收起
@@ -41,28 +39,8 @@ var vm = new Vue({
         handleClose(key, keyPath) {
             console.log(key, keyPath);
         },
-        showMore: function () {
-            this.showMoreDialog = !this.showMoreDialog;
-        },
         search: function () {
 
-        },
-        searchMore: function () {
-
-        },
-        timedUpdate: function () {
-            this.updateClock();
-            // this.updateSnippets();
-            setTimeout(this.timedUpdate, 1000);
-        },
-        updateClock: function () {
-            var now = moment(),
-                second = now.seconds() * 6,
-                minute = now.minutes() * 6 + second / 60,
-                hour = ((now.hours() % 12) / 12) * 360 + 90 + minute / 12;
-            this.$refs.hour.style.transform = "rotate(" + hour + "deg)"
-            this.$refs.minute.style.transform = "rotate(" + minute + "deg)"
-            this.$refs.second.style.transform = "rotate(" + second + "deg)"
         }
     }
     ,
