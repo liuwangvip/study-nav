@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>网址导航</title>
+    <title>网址导航-管理页面</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="css/element/element.css">
-    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/setting/setting.css"/>
     <link rel="icon" href="img/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
@@ -15,26 +15,21 @@
             <el-menu default-active="1-4-1" background-color="#3c3f41" text-color="#f5f5f5" class="fd-left-nav"
                      @open="handleOpen" @close="handleClose"
                      :collapse="isCollapse">
-                <el-submenu index="1">
-                    <template slot="title">
-                        <i class="el-icon-location"></i>
-                        <span slot="title">导航一</span>
-                    </template>
-                    <el-menu-item-group>
-                        <el-menu-item index="1-3">选项3</el-menu-item>
-                    </el-menu-item-group>
-                </el-submenu>
+                <el-menu-item index="1">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">分类</span>
+                </el-menu-item>
                 <el-menu-item index="2">
                     <i class="el-icon-menu"></i>
-                    <span slot="title">导航二</span>
+                    <span slot="title">网址</span>
                 </el-menu-item>
                 <el-menu-item index="3" disabled>
                     <i class="el-icon-document"></i>
-                    <span slot="title">导航三</span>
+                    <span slot="title">文档</span>
                 </el-menu-item>
                 <el-menu-item index="4">
                     <i class="el-icon-setting"></i>
-                    <span slot="title">导航四</span>
+                    <span slot="title">设置</span>
                 </el-menu-item>
             </el-menu>
         </el-aside>
@@ -56,13 +51,6 @@
             </el-header>
             <el-container>
                 <el-header class="fd-link-header" height="200px">
-                    <div class="hero-circle">
-                        <div class="hero-face">
-                            <div id="hour" ref="hour" class="hero-hour"></div>
-                            <div id="minute" ref="minute" class="hero-minute"></div>
-                            <div id="second" ref="second" class="hero-second"></div>
-                        </div>
-                    </div>
                     <div class="fd-search">
                         <el-input @keyup.enter.native="search" size="medium"
                                   prefix-icon="el-icon-search"
@@ -81,10 +69,11 @@
                                         <el-card class="fd-link-card" shadow="hover">
                                             <div slot="header" class="fd-link-card-header">
                                                 <div class="fd-link-card-header-img">
-                                                    <el-avatar style="vertical-align: middle;background-color: transparent"
-                                                               :size="50"
-                                                               fit="fill"
-                                                               src="img/logos/feature.png" @error="true">
+                                                    <el-avatar
+                                                            style="vertical-align: middle;background-color: transparent"
+                                                            :size="50"
+                                                            fit="fill"
+                                                            src="img/logos/feature.png" @error="true">
                                                         <img src="img/logos/error.png">
                                                     </el-avatar>
                                                 </div>
@@ -114,46 +103,6 @@
             </el-footer>
         </el-container>
     </el-container>
-    <el-drawer title="showMore" :visible.sync="showMoreDialog" :with-header="false">
-        <div class="fd-drawer-container">
-            <div class="fd-user">
-                <div class="fd-user-search">
-                    <el-input @keyup.enter.native="searchMore" size="mini"
-                              prefix-icon="el-icon-search"
-                              placeholder="搜索" v-model="searchMoreText"
-                              class="input-with-select">
-                    </el-input>
-                </div>
-                <div class="fd-user-list">
-                    <template v-for="item in onlineList">
-                        <div class="fd-user-item">
-                            <div>
-                                <el-avatar style="line-height: 32px;" size="medium"
-                                           src="img/chat/user-blue.png" fit="none"></el-avatar>
-                            </div>
-                            <div style="text-align: center">
-                                {{item.username}}
-                            </div>
-                        </div>
-                    </template>
-                </div>
-                <div class="fd-msg-box">
-                    <div class="fd-msg-box-title">
-                        群聊名称
-                    </div>
-                    <div class="fd-msg-box-dsc">
-                        群聊xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                    </div>
-                </div>
-                <div class="fd-msg-box">
-                    <div class="fd-msg-box-title">群公告</div>
-                    <div class="fd-msg-box-dsc">
-                        用户行为规范：用户的言行不得违反《计算机信息网络国际联网安全保护管理办法》、《互联网信息服务管理办法》、《维护互联网安全的决定》、《互联网新闻信息服务管理规定》、《长江保护法》、《中华人民共和国测绘法》、《地图管理条例》、《网络安全法》、《未成年人保护法》、《互联网宗教信息服务管理办法》等相关法律法规规定；由于用户言行导致的法律问题与平台无关，平台保留追诉权力。
-                    </div>
-                </div>
-            </div>
-        </div>
-    </el-drawer>
 </div>
 </body>
 <!-- import Vue before Element -->
@@ -162,5 +111,5 @@
 <script src="js/element/element.js"></script>
 <script src="js/moment/moment.js"></script>
 <script src="js/axios/axios.min.js"></script>
-<script src="js/index.js"></script>
+<script src="js/setting/setting.js"></script>
 </html>
