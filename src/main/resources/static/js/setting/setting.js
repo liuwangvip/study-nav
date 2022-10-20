@@ -11,6 +11,13 @@ var vm = new Vue({
             navType: 'fl',
             //分类
             fl: {
+                dialogFormVisible: false,
+                parentData: [
+                    {id: "11111", name: "dev"},
+                    {id: "22222", name: "feature"}
+                ],
+                // 表单信息
+                form: {},
                 current: 1,
                 size: 10,
                 total: 0,
@@ -35,6 +42,9 @@ var vm = new Vue({
             },
             //网址
             link: {
+                dialogFormVisible: false,
+                // 表单信息
+                form: {},
                 current: 1,
                 size: 10,
                 total: 0,
@@ -126,17 +136,22 @@ var vm = new Vue({
                 _this.$message.error("获取分类列表失败");
             });
         },
+
+        handleFlAdd: function () {
+            this.fl.dialogFormVisible = true;
+        },
         handleFlView: function (row) {
             this.$message("查看，开发中...");
         },
-        handleFlAdd: function (row) {
-            this.$message("新增，开发中...");
-        },
+
         handleFlEdit: function (row) {
             this.$message("编辑，开发中...");
         },
         handleFlDel: function (row) {
             this.$message("删除，开发中...");
+        },
+        saveFl: function () {
+            this.$message("保存，开发中...");
         },
         /**
          * 改变每页显示条数
@@ -193,7 +208,7 @@ var vm = new Vue({
             });
         },
         handleLinkAdd: function (row) {
-            this.$message("新增，开发中...");
+            this.link.dialogFormVisible = true;
         },
         handleLinkView: function (row) {
             this.$message("查看，开发中...");
@@ -203,6 +218,9 @@ var vm = new Vue({
         },
         handleLinkDel: function (row) {
             this.$message("删除，开发中...");
+        },
+        saveLink: function () {
+            this.$message("保存，开发中...");
         },
         /**
          * 改变每页显示条数
