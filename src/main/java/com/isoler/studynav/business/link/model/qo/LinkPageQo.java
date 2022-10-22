@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -21,7 +20,6 @@ import java.io.Serializable;
 @ApiModel(value = "link分页查询对象", description = "link分页查询对象")
 public class LinkPageQo implements Serializable {
     @ApiModelProperty(name = "搜索", required = true)
-    @NotBlank(message = "搜索内容不能为空")
     private String searchText;
 
     @ApiModelProperty(name = "每页显示的条数")

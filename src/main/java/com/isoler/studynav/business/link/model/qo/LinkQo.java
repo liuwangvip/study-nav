@@ -22,6 +22,5 @@ import java.io.Serializable;
 public class LinkQo implements Serializable {
 
     @ApiModelProperty(name = "搜索", required = true)
-    @NotBlank(message = "搜索内容不能为空")
     private String searchText;
 }

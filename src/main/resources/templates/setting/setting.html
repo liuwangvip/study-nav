@@ -16,11 +16,11 @@
                      @select="handleSelect"
                      :collapse="isCollapse">
                 <el-menu-item index="fl">
-                    <i class="el-icon-menu"></i>
+                    <i class="el-icon-price-tag"></i>
                     <span slot="title">分类</span>
                 </el-menu-item>
                 <el-menu-item index="link">
-                    <i class="el-icon-menu"></i>
+                    <i class="el-icon-link"></i>
                     <span slot="title">网址</span>
                 </el-menu-item>
                 <el-menu-item index="document">
@@ -66,11 +66,11 @@
                                 </el-tooltip>
                             </div>
                         </div>
-                        <el-table :data="fl.data" stripe style="width: 100%">
-                            <el-table-column prop="name" label="名称" width="180"></el-table-column>
-                            <el-table-column prop="desc" label="说明"></el-table-column>
-                            <el-table-column prop="address" label="时间" width="180"></el-table-column>
-                            <el-table-column fixed="right" label="操作" width="100">
+                        <el-table :data="fl.pageData" stripe style="width: 100%">
+                            <el-table-column prop="name" label="分类名称" width="180"></el-table-column>
+                            <el-table-column prop="icon" label="图标" width="180"></el-table-column>
+                            <el-table-column prop="description" label="描述"></el-table-column>
+                            <el-table-column fixed="right" label="操作" width="140">
                                 <template slot-scope="scope">
                                     <el-tooltip class="operate-item" effect="dark" content="查看" placement="bottom-end">
                                         <el-link :underline="false" @click="handleFlView(scope.row)"
@@ -126,11 +126,13 @@
                                 </el-tooltip>
                             </div>
                         </div>
-                        <el-table :data="fl.data" stripe style="width: 100%">
-                            <el-table-column prop="name" label="名称" width="180"></el-table-column>
-                            <el-table-column prop="desc" label="说明"></el-table-column>
-                            <el-table-column prop="address" label="时间" width="180"></el-table-column>
-                            <el-table-column fixed="right" label="操作" width="100">
+                        <el-table :data="link.pageData" stripe style="width: 100%">
+                            <el-table-column prop="flName" label="网址所属分类" width="180"></el-table-column>
+                            <el-table-column prop="name" label="网址名称"></el-table-column>
+                            <el-table-column prop="url" label="网址链接" width="180"></el-table-column>
+                            <el-table-column prop="logo" label="网址logo" width="180"></el-table-column>
+                            <el-table-column prop="description" label="描述"></el-table-column>
+                            <el-table-column fixed="right" label="操作" width="140">
                                 <template slot-scope="scope">
                                     <el-tooltip class="operate-item" effect="dark" content="查看" placement="bottom-end">
                                         <el-link :underline="false" @click="handleLinkView(scope.row)"
@@ -171,48 +173,54 @@
             </el-footer>
         </el-container>
     </el-container>
+
+
     <el-dialog title="网址分类" :visible.sync="fl.dialogFormVisible">
-        <el-form :model="fl.form" label-width="80px">
-            <el-form-item label="分类名称">
+        <el-form :model="fl.form" :rules="fl.rules" label-width="80px" ref="flForm">
+            <el-form-item label="分类名称" prop="name">
                 <el-input v-model="fl.form.name" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="图标">
-                <el-input v-model="fl.form.name" autocomplete="off"></el-input>
+            <el-form-item label="图标" prop="icon">
+                <el-input v-model="fl.form.icon" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="父分类">
+            <el-form-item label="父分类" prop="parentId">
                 <el-select v-model="fl.form.parentId" placeholder="请选择父分类">
-                    <el-option v-for="(item,index) in fl.parentData" :label="item.name" :value="item.id"></el-option>
+                    <el-option v-for="(item,index) in link.parentData" :label="item.name" :value="item.id"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="描述">
-                <el-input type="textarea" v-model="fl.form.desc"></el-input>
+            <el-form-item label="描述" prop="description">
+                <el-input type="textarea" v-model="fl.form.description"></el-input>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="fl.dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="saveFl">保存</el-button>
+            <el-button type="primary" @click="saveFl('flForm')">保存</el-button>
         </div>
     </el-dialog>
+
     <el-dialog title="网址" :visible.sync="link.dialogFormVisible">
-        <el-form :model="link.form" label-width="80px">
-            <el-form-item label="分类名称">
-                <el-input v-model="link.form.name" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="图标">
-                <el-input v-model="link.form.name" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="父分类">
-                <el-select v-model="link.form.parentId" placeholder="请选择父分类">
-                    <el-option v-for="(item,index) in link.parentData" :label="item.name" :value="item.id"></el-option>
+        <el-form :model="link.form" :rules="link.rules" label-width="80px" ref="linkForm">
+            <el-form-item label="所属分类" prop="flId">
+                <el-select v-model="link.form.flId" placeholder="请选择所属分类">
+                    <el-option v-for="(item,index) in fl.data" :label="item.name" :value="item.id"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="描述">
-                <el-input type="textarea" v-model="link.form.desc"></el-input>
+            <el-form-item label="网址名称" prop="name">
+                <el-input v-model="link.form.name" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="网址链接" prop="url">
+                <el-input v-model="link.form.url" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="网址logo" prop="logo">
+                <el-input v-model="link.form.logo" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="描述" prop="description">
+                <el-input type="textarea" v-model="link.form.description"></el-input>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="link.dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="saveLink">保存</el-button>
+            <el-button type="primary" @click="saveLink('linkForm')">保存</el-button>
         </div>
     </el-dialog>
 </div>

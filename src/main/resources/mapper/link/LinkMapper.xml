@@ -7,6 +7,22 @@
         <id column="c_id" property="id" />
         <result column="c_fl_id" property="flId" />
         <result column="c_name" property="name" />
+        <result column="c_logo" property="logo" />
+        <result column="c_description" property="description" />
+        <result column="c_url" property="url" />
+        <result column="n_read" property="read" />
+        <result column="n_star" property="star" />
+        <result column="n_order" property="xh" />
+        <result column="dt_create_time" property="createTime" />
+        <result column="dt_update_time" property="updateTime" />
+    </resultMap>
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultVo" type="com.isoler.studynav.business.link.model.bean.Link">
+        <id column="c_id" property="id" />
+        <result column="c_fl_id" property="flId" />
+        <result column="c_name" property="name" />
         <result column="c_fl_name" property="flName" />
         <result column="c_logo" property="logo" />
         <result column="c_description" property="description" />
@@ -37,9 +53,10 @@
         </where>
     </update>
 
-    <select id="listLink" resultType="com.isoler.studynav.business.link.model.bean.Link">
+    <select id="listLink" resultMap="BaseResultVo">
         select
         <include refid="Base_Column_List_Prefix"></include>
+        ,fl.c_name as c_fl_name
         from db_nav.t_link link
         left join db_nav.t_fl fl on link.c_fl_id = fl.c_id
         <where>

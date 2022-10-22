@@ -9,6 +9,20 @@ var vm = new Vue({
             searchText: "",
             searchMoreText: "",
             navType: 'fl',
+            //分类表单
+            form_fl: {
+                name: "",
+                icon: "",
+                description: ""
+            },
+            //网址表单
+            form_link: {
+                flId: "",
+                name: "",
+                url: "",
+                logo: "",
+                description: ""
+            },
             //分类
             fl: {
                 dialogFormVisible: false,
@@ -16,13 +30,29 @@ var vm = new Vue({
                     {id: "11111", name: "dev"},
                     {id: "22222", name: "feature"}
                 ],
-                // 表单信息
-                form: {},
+                //分类表单
+                form: {
+                    name: "",
+                    icon: "",
+                    description: ""
+                },
+                rules: {
+                    name: [
+                        {required: true, message: '请输入分类名称', trigger: 'blur'}
+                    ],
+                    icon: [
+                        {required: true, message: '请输入分类图标', trigger: 'blur'}
+                    ],
+                    description: [
+                        {required: true, message: '请输入分类描述', trigger: 'blur'}
+                    ],
+                },
                 current: 1,
                 size: 10,
                 total: 0,
                 searchText: "",
-                data: [
+                data: [],
+                pageData: [
                     {
                         date: '2016-05-02',
                         name: '王小虎',
@@ -46,7 +76,30 @@ var vm = new Vue({
             link: {
                 dialogFormVisible: false,
                 // 表单信息
-                form: {},
+                form: {
+                    flId: "",
+                    name: "",
+                    url: "",
+                    logo: "",
+                    description: ""
+                },
+                rules: {
+                    flId: [
+                        {required: true, message: '请选择所属分类', trigger: 'blur'}
+                    ],
+                    name: [
+                        {required: true, message: '请输入网址名称', trigger: 'blur'}
+                    ],
+                    url: [
+                        {required: true, message: '请输入网址链接', trigger: 'blur'}
+                    ],
+                    logo: [
+                        {required: true, message: '请输入网址logo', trigger: 'blur'}
+                    ],
+                    description: [
+                        {required: true, message: '请输入网址描述', trigger: 'blur'}
+                    ],
+                },
                 current: 1,
                 size: 10,
                 total: 0,
@@ -98,11 +151,27 @@ var vm = new Vue({
         },
 
         handleSelect: function (key, keyPath) {
+            console.log(key, keyPath);
             this.navType = key;
-            console.log(key);
+            switch (key) {
+                case 'fl':
+                    this.loadFlPageData();
+                    break;
+                case 'link':
+                    this.loadLinkPageData();
+                    break;
+            }
+        },
+        loadFlData: function () {
+            var _this = this;
+            axios.post("fl/list", {}).then(function (res) {
+                _this.fl.data = res.data.result;
+            }).catch(function (e) {
+                _this.$message.error(e.response.data.message);
+            });
         },
 
-        loadFlData: function () {
+        loadFlPageData: function () {
             var _this = this;
             var param = {
                 current: this.fl.current,
@@ -110,11 +179,11 @@ var vm = new Vue({
                 searchText: this.fl.searchText
             };
             axios.post("fl/page", param).then(function (res) {
-                _this.fl.data = res.data.result.records;
+                _this.fl.pageData = res.data.result.records;
                 _this.fl.total = res.data.result.total;
             }).catch(function (e) {
                 console.log(e);
-                _this.$message.error("获取分类列表失败");
+                _this.$message.error(e.response.data.message);
             });
         },
         searchFl: function () {
@@ -131,7 +200,7 @@ var vm = new Vue({
             };
             var _this = this;
             axios.post("fl/page", param).then(function (res) {
-                _this.fl.data = res.data.result.records;
+                _this.fl.PageData = res.data.result.records;
                 _this.fl.total = res.data.result.total;
             }).catch(function (e) {
                 console.log(e);
@@ -152,8 +221,39 @@ var vm = new Vue({
         handleFlDel: function (row) {
             this.$message("删除，开发中...");
         },
-        saveFl: function () {
-            this.$message("保存，开发中...");
+
+        /**
+         * 取消
+         * @param formName
+         */
+        cancelFl: function (formName) {
+            this.fl.dialogFormVisible = false;
+            this.$refs[formName].resetFields();
+        },
+        /**
+         * 保存分类
+         * @param formName
+         */
+        saveFl: function (formName) {
+            var _this = this;
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    axios.post("fl", _this.fl.form).then(function (res) {
+                        console.log(res);
+                        if (res.data.success) {
+                            _this.$message({type: 'success', message: "保存成功"});
+                        } else {
+                            _this.$message.error(res.data.message || "保存失败,请联系管理员!");
+                        }
+                    }).catch(function (e) {
+                        console.log(e);
+                        _this.$message.error(e.response.data.message || "保存网址失败,请联系管理员!");
+                    });
+                } else {
+                    console.log('表单校验未通过');
+                    return false;
+                }
+            });
         },
         /**
          * 改变每页显示条数
@@ -162,7 +262,7 @@ var vm = new Vue({
         handleFlSizeChange: function (val) {
             this.fl.current = 1;
             this.fl.size = val;
-            this.loadFlData();
+            this.loadFlPageData();
         },
         /**
          * 翻页
@@ -170,10 +270,10 @@ var vm = new Vue({
          */
         handleFlPageChange: function (val) {
             this.fl.current = val;
-            this.loadFlData();
+            this.loadFlPageData();
         },
 
-        loadLinkData: function () {
+        loadLinkPageData: function () {
             var _this = this;
             var param = {
                 current: this.link.current,
@@ -181,11 +281,11 @@ var vm = new Vue({
                 searchText: this.link.searchText
             };
             axios.post("link/page", param).then(function (res) {
-                _this.link.data = res.data.result.records;
+                _this.link.pageData = res.data.result.records;
                 _this.linktotal = res.data.result.total;
             }).catch(function (e) {
                 console.log(e);
-                _this.$message.error("获取网址列表失败");
+                _this.$message.error(e.response.data.message || "获取网址列表失败,请联系管理员!");
             });
         },
         searchLink: function () {
@@ -221,8 +321,29 @@ var vm = new Vue({
         handleLinkDel: function (row) {
             this.$message("删除，开发中...");
         },
-        saveLink: function () {
-            this.$message("保存，开发中...");
+        /**
+         * 保存链接
+         * @param formName 表单名称
+         */
+        saveLink: function (formName) {
+            var _this = this;
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    axios.post("link", _this.link.form).then(function (res) {
+                        console.log(res);
+                        if (res.data.success) {
+                            _this.$message({type: 'success', message: res.data.message});
+                        } else {
+                            _this.$message.error(res.data.message || "保存网址失败,请联系管理员!");
+                        }
+                    }).catch(function (e) {
+                        _this.$message(e.message || "保存网址失败,请联系管理员!");
+                    });
+                } else {
+                    console.log('表单校验未通过');
+                    return false;
+                }
+            });
         },
         /**
          * 改变每页显示条数
@@ -231,7 +352,7 @@ var vm = new Vue({
         handleLinkSizeChange: function (val) {
             this.link.current = 1;
             this.link.size = val;
-            this.loadLinkData();
+            this.loadLinkPageData();
         },
         /**
          * 翻页
@@ -239,14 +360,15 @@ var vm = new Vue({
          */
         handleLinkPageChange: function (val) {
             this.link.current = val;
-            this.loadLinkData();
+            this.loadLinkPageData();
         }
 
     }
     ,
     created: function () {
-        // this.loadFlData();
-        // this.loadLinkData();
+        this.loadFlData();
+        this.loadFlPageData();
+        this.loadLinkPageData();
     }
     ,
     mounted: function () {

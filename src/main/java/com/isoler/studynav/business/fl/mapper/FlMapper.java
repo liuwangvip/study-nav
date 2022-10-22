@@ -23,7 +23,7 @@ public interface FlMapper extends BaseMapper<Fl> {
      * @param qo
      * @return
      */
-    List<Fl> listFl(FlQo qo);
+    List<Fl> listFl(@Param("qo") FlQo qo);
 
     /**
      * 获取分类列表-分页
