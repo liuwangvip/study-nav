@@ -63,6 +63,23 @@
                                 <div class="fd-fl-title">{{item.name}}</div>
                                 <div class="fd-fl-main">
                                     <template v-for="(subItem,subIndex) in item.links" :key="subIndex">
+                                        <el-row :gutter="20">
+                                            <el-col :span="6">
+                                                <div class="grid-content bg-purple"></div>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div class="grid-content bg-purple"></div>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div class="grid-content bg-purple"></div>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div class="grid-content bg-purple"></div>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div class="grid-content bg-purple"></div>
+                                            </el-col>
+                                        </el-row>
                                         <el-card class="fd-link-card" shadow="hover">
                                             <div slot="header" class="fd-link-card-header">
                                                 <div class="fd-link-card-header-img">

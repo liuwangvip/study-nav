@@ -61,7 +61,18 @@
     </select>
     <select id="listFlRec" resultMap="BaseVo">
         select
-        <include refid="Base_Column_List_Prefix"></include>
+            <include refid="Base_Column_List_Prefix"></include>
+           , link.c_id as c_link_id
+           , link.c_fl_id
+           , link.c_name as c_link_name
+           , link.c_logo
+           , link.c_description as c_link_description
+           , link.c_url
+           , link.n_read
+           , link.n_star
+           , link.n_order
+           , link.dt_create_time
+           , link.dt_update_time
         from db_nav.t_fl fl
         left join db_nav.t_link link on fl.c_id = link.c_fl_id
         <where>

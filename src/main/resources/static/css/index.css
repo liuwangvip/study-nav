@@ -86,10 +86,10 @@ body {
     height: calc(100vh - 400px);
     margin-bottom: 20px;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    flex-wrap: nowrap;
     justify-content: flex-start;
-    align-items: center;
+    align-items: start;
 }
 
 .fd-fl-container {

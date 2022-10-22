@@ -262,7 +262,7 @@ var vm = new Vue({
         }
     },
     created: function () {
-        // this.loadFlData();
+        this.loadFlData();
     },
     mounted: function () {
         var _this = this;
