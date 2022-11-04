@@ -27,7 +27,9 @@
             <el-header class="fd-head" height="40px">
                 <div class="fd-head-title">
                     <div>
-                        <i class="el-icon-menu" style="cursor: pointer" @click="changeCollapse"></i>
+                        <i :class="collapseClazz" style="cursor: pointer" @click="changeCollapse"></i>
+                    </div>
+                    <div>
                         <span style="padding-left: 10px">网址导航</span>
                     </div>
                     <div class="fd-head-more" @click="showMore">

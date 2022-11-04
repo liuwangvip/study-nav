@@ -5,6 +5,7 @@ var vm = new Vue({
             screenWidth: document.body.clientWidth,
             timer: false,
             isCollapse: false,
+            collapseClazz: 'el-icon-d-arrow-left',
             showMoreDialog: false,
             searchText: "",
             searchMoreText: "",
@@ -220,6 +221,11 @@ var vm = new Vue({
          */
         changeCollapse: function () {
             this.isCollapse = !this.isCollapse;
+            if (this.isCollapse) {
+                this.collapseClazz = 'el-icon-d-arrow-right';
+            } else {
+                this.collapseClazz = 'el-icon-d-arrow-left';
+            }
         },
         handleSelect(key, keyPath) {
             this.navType = key;
