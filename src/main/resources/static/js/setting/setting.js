@@ -2,6 +2,14 @@ var vm = new Vue({
     el: '#app',
     data: function () {
         return {
+            leftNav: {
+                // 是否持续展开
+                isExpand: [0, 0],
+                activeIndex: 'fl',
+                sidebar: {},
+                menulist: {},
+                listItems: {}
+            },
             screenWidth: document.body.clientWidth,
             timer: false,
             isCollapse: false,
@@ -9,6 +17,7 @@ var vm = new Vue({
             searchText: "",
             searchMoreText: "",
             navType: 'fl',
+            operateType: 'view',
             //分类表单
             form_fl: {
                 name: "",
@@ -52,25 +61,7 @@ var vm = new Vue({
                 total: 0,
                 searchText: "",
                 data: [],
-                pageData: [
-                    {
-                        date: '2016-05-02',
-                        name: '王小虎',
-                        address: '上海市普陀区金沙江路 1518 弄'
-                    }, {
-                        date: '2016-05-04',
-                        name: '王小虎',
-                        address: '上海市普陀区金沙江路 1517 弄'
-                    }, {
-                        date: '2016-05-01',
-                        name: '王小虎',
-                        address: '上海市普陀区金沙江路 1519 弄'
-                    }, {
-                        date: '2016-05-03',
-                        name: '王小虎',
-                        address: '上海市普陀区金沙江路 1516 弄'
-                    }
-                ]
+                pageData: []
             },
             //网址
             link: {
@@ -104,63 +95,56 @@ var vm = new Vue({
                 size: 10,
                 total: 0,
                 searchText: "",
-                data: [{
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1517 弄'
-                }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1519 弄'
-                }, {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1516 弄'
-                }],
+                data: [],
+                pageData: []
             }
-        }
-    },
-    watch: {
-        screenWidth(newValue) {
-            // 为了避免频繁触发resize函数导致页面卡顿，使用定时器
-            if (!this.timer) {
-                this.screenWidth = newValue;
-                this.isCollapse = this.screenWidth >= 600 ? false : true;
-                this.timer = true;
-                setTimeout(() => {
-                    this.timer = false;
-                }, 400);
-            }
-        }
-    },
-    computed: {
-        navType: function (newVal, oldVal) {
-            console.log("compute", newVal, oldVal);
         }
     },
     methods: {
-        /**
-         * 展开/收起
-         */
-        changeCollapse: function () {
-            this.isCollapse = !this.isCollapse;
+        returnIndex: function () {
+            window.location.href = "index";
         },
-
-        handleSelect: function (key, keyPath) {
-            console.log(key, keyPath);
-            this.navType = key;
-            switch (key) {
-                case 'fl':
-                    this.loadFlPageData();
-                    break;
-                case 'link':
-                    this.loadLinkPageData();
-                    break;
+        /**
+         * 鼠标移入
+         */
+        sidebarMouseEnter: function () {
+            this.leftNav.menulist[0].style.overflowY = 'scroll'
+        },
+        /**
+         * 鼠标移出
+         */
+        sidebarMouseLeave: function () {
+            this.leftNav.menulist[0].style.overflowY = 'hidden'
+        },
+        /**
+         * 鼠标移入菜单
+         * @param e
+         */
+        menuMouseEnter: function (e) {
+            if (0 == this.leftNav.isExpand[0] && !this.leftNav.sidebar[0].classList.contains('is-expanded')) {
+                this.leftNav.sidebar[0].classList.add('is-expanded')
             }
+        },
+        /**
+         * 鼠标移出菜单
+         * @param e
+         */
+        menuMouseLeave: function (e) {
+            if (0 == this.leftNav.isExpand[0] && this.leftNav.sidebar[0].classList.contains('is-expanded')) {
+                this.leftNav.sidebar[0].classList.remove('is-expanded')
+            }
+        },
+        /**
+         * 展开/收缩导航栏按钮
+         * @param e
+         */
+        toggleLeftNav: function (e) {
+            if (0 == this.leftNav.isExpand[0]) {
+                this.leftNav.isExpand[0] = 1
+            } else {
+                this.leftNav.isExpand[0] = 0
+            }
+            this.leftNav.sidebar[0].classList.toggle('is-expanded')
         },
         loadFlData: function () {
             var _this = this;
@@ -170,7 +154,6 @@ var vm = new Vue({
                 _this.$message.error(e.response.data.message);
             });
         },
-
         loadFlPageData: function () {
             var _this = this;
             var param = {
@@ -187,7 +170,7 @@ var vm = new Vue({
             });
         },
         searchFl: function () {
-            if (this.fl.searchText == "") {
+            if (this.fl.searchText === "") {
                 this.$message("搜索的内容不能为空");
                 return;
             }
@@ -210,16 +193,32 @@ var vm = new Vue({
 
         handleFlAdd: function () {
             this.fl.dialogFormVisible = true;
+            this.fl.form = {};
+            this.operateType = 'add';
         },
         handleFlView: function (row) {
-            this.$message("查看，开发中...");
+            this.fl.dialogFormVisible = true;
+            this.operateType = 'view';
+            this.fl.form = row;
         },
 
         handleFlEdit: function (row) {
-            this.$message("编辑，开发中...");
+            this.operateType = 'edit';
+            this.fl.dialogFormVisible = true;
+            this.fl.form = row;
         },
         handleFlDel: function (row) {
-            this.$message("删除，开发中...");
+            var _this = this;
+            axios.delete("fl/" + row.id).then(function (res) {
+                if (res.data.success) {
+                    _this.$message({message: "删除成功", type: 'success'});
+                    _this.loadFlPageData();
+                } else {
+                    _this.$message.error(res.data.message || "删除失败,请联系管理员!");
+                }
+            }).catch(function (e) {
+                _this.$message(e.message || "删除失败,请联系管理员!");
+            });
         },
 
         /**
@@ -241,7 +240,9 @@ var vm = new Vue({
                     axios.post("fl", _this.fl.form).then(function (res) {
                         console.log(res);
                         if (res.data.success) {
+                            _this.fl.dialogFormVisible = false;
                             _this.$message({type: 'success', message: "保存成功"});
+                            _this.loadFlPageData();
                         } else {
                             _this.$message.error(res.data.message || "保存失败,请联系管理员!");
                         }
@@ -311,15 +312,31 @@ var vm = new Vue({
         },
         handleLinkAdd: function (row) {
             this.link.dialogFormVisible = true;
+            this.link.form = {};
+            this.operateType = 'add';
         },
         handleLinkView: function (row) {
-            this.$message("查看，开发中...");
+            this.link.dialogFormVisible = true;
+            this.operateType = 'view';
+            this.link.form = row;
         },
         handleLinkEdit: function (row) {
-            this.$message("编辑，开发中...");
+            this.operateType = 'edit';
+            this.link.dialogFormVisible = true;
+            this.link.form = row;
         },
         handleLinkDel: function (row) {
-            this.$message("删除，开发中...");
+            var _this = this;
+            axios.delete("link/" + row.id).then(function (res) {
+                if (res.data.success) {
+                    _this.$message({message: "删除成功", type: 'success'});
+                    _this.loadLinkPageData();
+                } else {
+                    _this.$message.error(res.data.message || "删除失败,请联系管理员!");
+                }
+            }).catch(function (e) {
+                _this.$message(e.message || "删除失败,请联系管理员!");
+            });
         },
         /**
          * 保存链接
@@ -332,7 +349,9 @@ var vm = new Vue({
                     axios.post("link", _this.link.form).then(function (res) {
                         console.log(res);
                         if (res.data.success) {
-                            _this.$message({type: 'success', message: res.data.message});
+                            _this.link.dialogFormVisible = false;
+                            _this.$message({type: 'success', message: "保存成功"});
+                            _this.loadLinkPageData();
                         } else {
                             _this.$message.error(res.data.message || "保存网址失败,请联系管理员!");
                         }
@@ -373,6 +392,9 @@ var vm = new Vue({
     ,
     mounted: function () {
         var _this = this;
+        this.leftNav.sidebar = document.querySelectorAll('.sidebar')
+        this.leftNav.menulist = document.querySelectorAll('.menu-list')
+        this.leftNav.listItems = document.querySelectorAll('.menu-list-item')
         window.onresize = function () {
             _this.screenWidth = document.body.clientWidth
         }

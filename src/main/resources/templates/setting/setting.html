@@ -6,44 +6,57 @@
     <!-- 引入样式 -->
     <link rel="stylesheet" href="css/element/element.css">
     <link rel="stylesheet" href="css/setting/setting.css"/>
+    <link rel="stylesheet" href="css/alibaba/font/iconfont.css">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
 <div id="app">
     <el-container>
         <el-aside width="auto">
-            <el-menu :default-active="navType" background-color="#3c3f41" text-color="#f5f5f5" class="fd-left-nav"
-                     @select="handleSelect"
-                     :collapse="isCollapse">
-                <el-menu-item index="fl">
-                    <i class="el-icon-price-tag"></i>
-                    <span slot="title">分类</span>
-                </el-menu-item>
-                <el-menu-item index="link">
-                    <i class="el-icon-link"></i>
-                    <span slot="title">网址</span>
-                </el-menu-item>
-                <el-menu-item index="document">
-                    <i class="el-icon-document"></i>
-                    <span slot="title">文档</span>
-                </el-menu-item>
-                <el-menu-item index="setting">
-                    <i class="el-icon-setting"></i>
-                    <span slot="title">设置</span>
-                </el-menu-item>
-            </el-menu>
+            <div class="sidebar" @mouseenter="sidebarMouseEnter" @mouseleave="sidebarMouseLeave">
+                <div class="menu-head">
+                    <div class="fd-logo" @click="returnIndex">
+                        <el-avatar
+                                style="vertical-align: middle;background-color: transparent"
+                                :size="40"
+                                shape="square"
+                                fit="fill"
+                                src="img/logos/nav.png">
+                        </el-avatar>
+                    </div>
+                    <div class="fd-title">
+                        Hello World
+                    </div>
+                </div>
+                <div class="menu-body">
+                    <ul class="menu-list" @mouseenter="menuMouseEnter" @mouseleave="menuMouseLeave">
+                        <li class="menu-list-item" :class="['fl'==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
+                            @click="leftNav.activeIndex='fl'">
+                            <a href="#"><i class="iconfont icongongzuoliuchengtu"></i><span>分类</span></a>
+                        </li>
+                        <li class="menu-list-item" :class="['link'==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
+                            @click="leftNav.activeIndex='link'">
+                            <a href="#"><i class="iconfont iconpiliangchuli"></i><span>网址</span></a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="menu-foot">
+                    <div class="menu-foot-button" @click="toggleLeftNav">
+                        <i class="iconfont iconindent"></i><i class="iconfont iconoutdent"></i>
+                    </div>
+                </div>
+            </div>
         </el-aside>
         <el-container>
             <el-header class="fd-head" height="40px">
                 <div class="fd-head-title">
-                    <div>
-                        <i class="el-icon-menu" style="cursor: pointer" @click="changeCollapse"></i>
-                        <span style="padding-left: 10px">网址导航-管理页面</span>
-                    </div>
+                    <div></div>
+                    <div></div>
                 </div>
             </el-header>
             <el-container class="fd-main-container">
-                <div v-if="navType=='fl'" style="width: 100%">
+                <div v-show="leftNav.activeIndex=='fl'" style="width: 100%">
                     <el-header class="fd-main-header" height="60px">
                         <div class="fd-search">
                             <el-input @keyup.enter.native="searchFl" size="medium"
@@ -103,7 +116,7 @@
                         </el-pagination>
                     </el-footer>
                 </div>
-                <div v-if="navType=='link'" style="width: 100%">
+                <div v-show="leftNav.activeIndex=='link'" style="width: 100%">
                     <el-header class="fd-main-header" height="60px">
                         <div class="fd-search">
                             <el-input @keyup.enter.native="searchLink" size="medium"
@@ -192,7 +205,7 @@
                 <el-input type="textarea" v-model="fl.form.description"></el-input>
             </el-form-item>
         </el-form>
-        <div slot="footer" class="dialog-footer">
+        <div slot="footer" class="dialog-footer" v-if="operateType=='edit'||operateType=='add'">
             <el-button @click="fl.dialogFormVisible = false">取 消</el-button>
             <el-button type="primary" @click="saveFl('flForm')">保存</el-button>
         </div>
@@ -218,7 +231,7 @@
                 <el-input type="textarea" v-model="link.form.description"></el-input>
             </el-form-item>
         </el-form>
-        <div slot="footer" class="dialog-footer">
+        <div slot="footer" class="dialog-footer" v-if="operateType=='edit'||operateType=='add'">
             <el-button @click="link.dialogFormVisible = false">取 消</el-button>
             <el-button type="primary" @click="saveLink('linkForm')">保存</el-button>
         </div>

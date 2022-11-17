@@ -2,9 +2,17 @@ var vm = new Vue({
     el: '#app',
     data: function () {
         return {
+            leftNav: {
+                // 是否持续展开
+                isExpand: [0, 0],
+                activeIndex: 0,
+                sidebar: {},
+                menulist: {},
+                listItems: {}
+            },
+
             screenWidth: document.body.clientWidth,
             timer: false,
-            isCollapse: false,
             collapseClazz: 'el-icon-d-arrow-left',
             showMoreDialog: false,
             searchText: "",
@@ -200,32 +208,62 @@ var vm = new Vue({
             onlineList: []
         }
     },
-    watch: {
-        screenWidth(newValue) {
-            // 为了避免频繁触发resize函数导致页面卡顿，使用定时器
-            if (!this.timer) {
-                this.screenWidth = newValue;
-                this.isCollapse = this.screenWidth >= 600 ? false : true;
-                this.timer = true;
-                setTimeout(() => {
-                    this.timer = false;
-                }, 400);
-            }
-        }
-    },
     computed: {},
 
     methods: {
+        returnIndex: function () {
+            window.location.href = "index";
+        },
         /**
-         * 展开/收起
+         * 鼠标移入
          */
-        changeCollapse: function () {
-            this.isCollapse = !this.isCollapse;
-            if (this.isCollapse) {
-                this.collapseClazz = 'el-icon-d-arrow-right';
-            } else {
-                this.collapseClazz = 'el-icon-d-arrow-left';
+        sidebarMouseEnter: function () {
+            this.leftNav.menulist[0].style.overflowY = 'scroll'
+        },
+        /**
+         * 鼠标移出
+         */
+        sidebarMouseLeave: function () {
+            this.leftNav.menulist[0].style.overflowY = 'hidden'
+        },
+        /**
+         * 鼠标移入菜单
+         * @param e
+         */
+        menuMouseEnter: function (e) {
+            if (0 == this.leftNav.isExpand[0] && !this.leftNav.sidebar[0].classList.contains('is-expanded')) {
+                this.leftNav.sidebar[0].classList.add('is-expanded')
             }
+        },
+        /**
+         * 鼠标移出菜单
+         * @param e
+         */
+        menuMouseLeave: function (e) {
+            if (0 == this.leftNav.isExpand[0] && this.leftNav.sidebar[0].classList.contains('is-expanded')) {
+                this.leftNav.sidebar[0].classList.remove('is-expanded')
+            }
+        },
+        /**
+         * 展开/收缩导航栏按钮
+         * @param e
+         */
+        toggleLeftNav: function (e) {
+            if (0 == this.leftNav.isExpand[0]) {
+                this.leftNav.isExpand[0] = 1
+            } else {
+                this.leftNav.isExpand[0] = 0
+            }
+            this.leftNav.sidebar[0].classList.toggle('is-expanded')
+        },
+        /**
+         * 选择菜单
+         */
+        selectMenu: function (i) {
+            for (let index = 0; index < this.leftNav.listItems.length; index++) {
+                this.leftNav.listItems[index].classList.remove('is-selected')
+            }
+            this.leftNav.listItems[i].classList.add('is-selected')
         },
         handleSelect(key, keyPath) {
             this.navType = key;
@@ -241,10 +279,17 @@ var vm = new Vue({
             var _this = this;
             axios.post("fl/all", {}).then(function (res) {
                 _this.fl.data = res.data.result;
+                _this.reloadListItem();
             }).catch(function (e) {
                 console.log("获取分类列表失败", e);
                 _this.$message.error(e.response.data.message || "获取分类列表失败");
             });
+        },
+        reloadListItem: function () {
+            var _this = this;
+            this.$nextTick(() => {
+                _this.leftNav.listItems = document.querySelectorAll('.menu-list-item')
+            }, 400);
         },
         search: function () {
 
@@ -273,6 +318,9 @@ var vm = new Vue({
     mounted: function () {
         var _this = this;
         this.timedUpdate();
+        this.leftNav.sidebar = document.querySelectorAll('.sidebar')
+        this.leftNav.menulist = document.querySelectorAll('.menu-list')
+        this.leftNav.listItems = document.querySelectorAll('.menu-list-item')
         window.onresize = function () {
             _this.screenWidth = document.body.clientWidth
         }

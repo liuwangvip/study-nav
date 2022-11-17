@@ -6,32 +6,80 @@
     <!-- 引入样式 -->
     <link rel="stylesheet" href="css/element/element.css">
     <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/alibaba/font/iconfont.css">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
 <div id="app">
     <el-container>
         <el-aside width="auto">
-            <el-menu default-active="1" background-color="#3c3f41" text-color="#f5f5f5" class="fd-left-nav"
-                     @select="handleSelect"
-                     :collapse="isCollapse">
-                <template v-for="(item,index) in fl.data">
-                    <el-menu-item :index="index+1">
-                        <i :class="item.icon"></i>
-                        <span slot="title">{{item.name}}</span>
-                    </el-menu-item>
-                </template>
-            </el-menu>
+            <div class="sidebar" @mouseenter="sidebarMouseEnter" @mouseleave="sidebarMouseLeave">
+                <div class="menu-head">
+                    <div class="fd-logo" @click="returnIndex">
+                        <el-avatar
+                                style="vertical-align: middle;background-color: transparent"
+                                :size="40"
+                                shape="square"
+                                fit="fill"
+                                src="img/logos/nav.png">
+                        </el-avatar>
+                    </div>
+                    <div class="fd-title">
+                        Hello World
+                    </div>
+                </div>
+                <div class="menu-body">
+                    <ul class="menu-list" @mouseenter="menuMouseEnter" @mouseleave="menuMouseLeave">
+                        <li class="menu-list-label"><span>网址分类</span></li>
+                        <li v-for="(item,index) in fl.data" class="menu-list-item"
+                            :class="[index==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
+                            @click="leftNav.activeIndex=index">
+                            <a :href="'#'+item.id"><i class="iconfont" :class="item.icon"></i><span>{{item.name}}</span></a>
+                        </li>
+                        <li class="menu-list-label"><span>文章</span></li>
+                        <li class="menu-list-item" :class="[100==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
+                            @click="leftNav.activeIndex=100">
+                            <a href="#"><i class="iconfont icongongjuxiang"></i><span>热门</span></a>
+                        </li>
+                        <li class="menu-list-item" :class="[101==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
+                            @click="leftNav.activeIndex=101">
+                            <a href="#"><i class="iconfont icongongzuoliuchengtu"></i><span>技术文档</span></a>
+                        </li>
+                        <li class="menu-list-item" :class="[102==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
+                            @click="leftNav.activeIndex=102">
+                            <a href="#"><i class="iconfont iconpiliangchuli"></i><span>项目规范</span></a>
+                        </li>
+
+                        <li class="menu-list-label"><span>生态服务</span></li>
+                        <li class="menu-list-item" :class="[300==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
+                            @click="leftNav.activeIndex=300">
+                            <a href="#"><i class="iconfont iconapplication"></i><span>常用工具</span></a>
+                        </li>
+                        <li class="menu-list-item" :class="[301==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
+                            @click="leftNav.activeIndex=301">
+                            <a href="#"><i class="iconfont icongongjuxiang"></i><span>休闲</span></a>
+                        </li>
+                        <li class="menu-list-label"><span>后台管理</span></li>
+                        <li class="menu-list-item" class="menu-list-item">
+                            <a href="setting"><i class="iconfont icongongjuxiang"></i><span>网址管理</span></a>
+                        </li>
+                        <li class="menu-list-item" class="menu-list-item">
+                            <a href="#"><i class="iconfont icongongjuxiang"></i><span>文章管理</span></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="menu-foot">
+                    <div class="menu-foot-button" @click="toggleLeftNav">
+                        <i class="iconfont iconindent"></i><i class="iconfont iconoutdent"></i>
+                    </div>
+                </div>
+            </div>
         </el-aside>
         <el-container>
             <el-header class="fd-head" height="40px">
                 <div class="fd-head-title">
-                    <div>
-                        <i :class="collapseClazz" style="cursor: pointer" @click="changeCollapse"></i>
-                    </div>
-                    <div>
-                        <span style="padding-left: 10px">网址导航</span>
-                    </div>
+                    <div></div>
+                    <div></div>
                     <div class="fd-head-more" @click="showMore">
                         <svg t="1664568892984" class="icon" viewBox="0 0 1024 1024" version="1.1"
                              xmlns="http://www.w3.org/2000/svg" p-id="12289" width="16" height="16">
@@ -61,10 +109,10 @@
                 <el-main style="padding: 0px 10px">
                     <div class="fd-link-container">
                         <template v-for="(item,index) in fl.data" :key="index">
-                            <div class="fd-fl-container">
+                            <div class="fd-fl-container" :id="item.id">
                                 <div class="fd-fl-title">
-                                    <i :class="item.icon"></i>
-                                    <span slot="title">{{item.name}}</span>
+                                    <i class="iconfont" :class="item.icon"></i>
+                                    <span slot="title" style="color: #555">{{item.name}}</span>
                                 </div>
                                 <div class="fd-fl-main">
                                     <template v-for="(subItem,subIndex) in item.links" :key="subIndex">
