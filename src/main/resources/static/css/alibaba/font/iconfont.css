@@ -1,9 +1,8 @@
 @font-face {
-  font-family: "iconfont"; /* Project id 2232321 */
-  src: url('iconfont.woff2?t=1662641054232') format('woff2'),
-       url('iconfont.woff?t=1662641054232') format('woff'),
-       url('iconfont.ttf?t=1662641054232') format('truetype'),
-       url('iconfont.svg?t=1662641054232#iconfont') format('svg');
+  font-family: "iconfont"; /* Project id 3780026 */
+  src: url('iconfont.woff2?t=1668786802759') format('woff2'),
+       url('iconfont.woff?t=1668786802759') format('woff'),
+       url('iconfont.ttf?t=1668786802759') format('truetype');
 }
 
 .iconfont {
@@ -14,203 +13,71 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.iconmiyueguanli:before {
-  content: "\e750";
-}
-
-.iconSDKxiazai:before {
-  content: "\e606";
-}
-
-.icongongzuoliuchengtu:before {
-  content: "\e600";
-}
-
-.iconpiliangchuli:before {
-  content: "\e60c";
-}
-
-.icongongjuxiang:before {
-  content: "\e612";
-}
-
-.iconchubanxitong-ziyuanbaoguanli:before {
-  content: "\e679";
-}
-
-.iconneirongshenhe:before {
-  content: "\e631";
-}
-
-.iconqrcode:before {
-  content: "\e76e";
-}
-
-.iconsupervise:before {
-  content: "\e777";
-}
-
-.iconchart-pie-alt:before {
-  content: "\e78c";
-}
-
-.iconchart-line:before {
-  content: "\e790";
-}
-
-.iconall:before {
-  content: "\e7e6";
-}
-
-.icondatabase-set:before {
-  content: "\e7f6";
-}
-
-.iconlayer-group:before {
-  content: "\e7f7";
-}
-
-.icondelete1:before {
-  content: "\e810";
-}
-
-.iconindent:before {
-  content: "\e834";
-}
-
-.iconoutdent:before {
-  content: "\e835";
-}
-
-.iconhome1:before {
-  content: "\e88b";
-}
-
-.iconapplication:before {
-  content: "\e89e";
-}
-
-.iconyunfuwuqi-32px:before {
+.icon-31sousuo:before {
   content: "\e601";
 }
 
-.iconhuiyuanjifen:before {
-  content: "\e6b0";
+.icon-daohang:before {
+  content: "\e974";
 }
 
-.iconshandian:before {
-  content: "\e80f";
+.icon-ren:before {
+  content: "\e6c5";
 }
 
-.iconshang:before {
-  content: "\e65e";
+.icon-shezhi:before {
+  content: "\e64b";
 }
 
-.iconxia:before {
-  content: "\e65f";
+.icon-gongju1:before {
+  content: "\e615";
 }
 
-.iconadd:before {
-  content: "\e664";
+.icon-remen:before {
+  content: "\e647";
 }
 
-.iconashbin:before {
-  content: "\e665";
+.icon-ziyuan:before {
+  content: "\e606";
 }
 
-.iconbad:before {
-  content: "\e667";
+.icon-shejiguifan:before {
+  content: "\e61f";
 }
 
-.iconchart-pie:before {
-  content: "\e668";
+.icon-kexuejishu-:before {
+  content: "\e9bf";
 }
 
-.icondelete:before {
-  content: "\e66a";
+.icon-git:before {
+  content: "\e691";
 }
 
-.icondirection-down:before {
-  content: "\e66b";
+.icon-fenlei:before {
+  content: "\e600";
 }
 
-.icondirection-right:before {
+.icon-lianjie:before {
+  content: "\e6c8";
+}
+
+.icon-wendang:before {
+  content: "\e617";
+}
+
+.icon-qita:before {
+  content: "\e60b";
+}
+
+.icon-wodexuqiu:before {
+  content: "\e741";
+}
+
+.icon-icon-test1:before {
   content: "\e66c";
 }
 
-.icondirection-up:before {
-  content: "\e66d";
-}
-
-.icondirection-left:before {
-  content: "\e66e";
-}
-
-.icondownload:before {
-  content: "\e66f";
-}
-
-.icongood:before {
-  content: "\e673";
-}
-
-.iconhome:before {
-  content: "\e674";
-}
-
-.iconlock:before {
-  content: "\e676";
-}
-
-.iconmenu:before {
-  content: "\e677";
-}
-
-.iconhelp:before {
-  content: "\e678";
-}
-
-.iconsearch:before {
-  content: "\e67d";
-}
-
-.iconsign-out:before {
-  content: "\e67e";
-}
-
-.iconselect:before {
-  content: "\e67f";
-}
-
-.iconsetting:before {
-  content: "\e680";
-}
-
-.iconarrow-up-filling:before {
-  content: "\e688";
-}
-
-.iconarrow-down-filling:before {
-  content: "\e689";
-}
-
-.iconarrow-left-filling:before {
-  content: "\e68a";
-}
-
-.iconarrow-right-filling:before {
-  content: "\e68b";
-}
-
-.iconnotification-filling:before {
-  content: "\e68c";
-}
-
-.iconuser-filling:before {
-  content: "\e68d";
-}
-
-.iconsorting:before {
-  content: "\e68e";
+.icon-icon-test:before {
+  content: "\e665";
 }
 

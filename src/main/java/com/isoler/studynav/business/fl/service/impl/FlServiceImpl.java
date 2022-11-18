@@ -1,5 +1,6 @@
 package com.isoler.studynav.business.fl.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.isoler.studynav.business.fl.mapper.FlMapper;
@@ -45,8 +46,10 @@ public class FlServiceImpl extends ServiceImpl<FlMapper, Fl> implements IFlServi
 
     @Override
     public Fl saveOrUpdateFl(Fl fl) {
+        if (StringUtils.isBlank(fl.getId())) {
+            fl.setXh(IdWorker.getId());
+        }
         this.saveOrUpdate(fl);
-        baseMapper.updateMaxXh(fl.getId());
         return fl;
     }
 
@@ -59,7 +62,7 @@ public class FlServiceImpl extends ServiceImpl<FlMapper, Fl> implements IFlServi
     public void switchXh(String one, String other) {
         Fl oneFl = this.getById(one);
         Fl otherFl = this.getById(other);
-        Integer tmp = oneFl.getXh();
+        Long tmp = oneFl.getXh();
         oneFl.setXh(otherFl.getXh());
         otherFl.setXh(tmp);
         this.updateById(oneFl);

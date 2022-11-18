@@ -74,6 +74,14 @@ body {
     align-items: center;
 }
 
+.fd-head .fd-head-title .fd-right {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .fd-head .fd-head-title .fd-head-more {
     padding-top: 10px;
     cursor: pointer;
@@ -96,6 +104,7 @@ body {
 
 .fd-fl-container {
     padding-top: 20px;
+    width: 100%;
 }
 
 .fd-fl-container .fd-fl-title {
@@ -114,11 +123,13 @@ body {
 
 
 .fd-link-card {
-    width: 300px;
-    height: 150px;
+    width: 20%;
+    min-width: 250px;
+    height: 100px;
     padding: 0px;
     margin: 10px 10px;
     background-color: #FFF;
+    cursor: pointer;
 }
 
 
@@ -132,7 +143,7 @@ body {
 
 
 .fd-link-card-header {
-    padding: 5px 20px;
+    padding: 5px 10px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -251,6 +262,12 @@ body {
     margin: 0px;
     white-space: pre-line;
     font-size: 13px;
+    height: 50px;
+}
+
+.fd-tip{
+    width: 200px;
+    white-space: pre-line;
 }
 
 /**
@@ -350,26 +367,29 @@ body {
 /* 标题 */
 .sidebar .menu-head {
     width: 200px;
-    height: 56px;
-    line-height: 56px;
+    height: 40px;
+    line-height: 40px;
     border-bottom: 1px solid #e7eaef;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.sidebar .menu-head .fd-logo {
     cursor: pointer;
 }
 
+.sidebar .menu-head > a {
+    text-decoration: none;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
 
-.sidebar .menu-head .fd-title {
+.sidebar .menu-head > a > i {
+    font-size: 32px;
+    color: #ff8c01;
+    margin: 0 8px 0 0;
+}
+
+.sidebar .menu-head > a > span {
+    font-size: 13px;
     display: none;
-    width: 100%;
-    padding: 0 20px;
     color: #000;
-    font: 900 14px '';
 }
 
 /* 尾部按钮 */
@@ -471,10 +491,7 @@ li.menu-list-item:hover {
     width: 201px;
 }
 
-/*.sidebar.is-expanded .menu-head i {*/
-/*    display: none;*/
-/*}*/
-.sidebar.is-expanded .menu-head .fd-title {
+.sidebar.is-expanded .menu-head > a > span {
     display: block;
 }
 
@@ -562,4 +579,56 @@ li.is-selected > a > i, li.is-selected > a > span {
 
 .sidebar.theme-dark ::-webkit-scrollbar-thumb {
     background-color: #313f5a;
+}
+
+
+.fd-auto-search {
+    width: 30px;
+    height: 30px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transition: 1s;
+}
+
+.fd-auto-search input {
+    display: none;
+    width: 0px;
+    padding: 0;
+    font-size: 14px;
+    outline: none;
+    border: none;
+    background: transparent;
+    transition: 1s;
+}
+
+.fd-auto-search button {
+    border: none;
+    padding: 3px;
+    margin: 3px;
+    border-radius: 50%;
+    background-color: #409eff;
+}
+
+.fd-auto-search button i {
+    font: 900 20px '';
+    color: #fff;
+}
+
+.fd-auto-search:hover {
+    width: 290px;
+    border: 2px solid #409eff;
+    background-color: #fff;
+}
+
+.fd-auto-search:hover input {
+    display: inline-block;
+    width: 100%;
+    margin-right: 15px;
+}
+
+.fd-auto-search:hover input::-webkit-input-placeholder {
+    color: #c3d3e5;
+    font-size: 12px;
 }

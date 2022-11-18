@@ -1,5 +1,6 @@
 package com.isoler.studynav.business.link.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.isoler.studynav.business.fl.model.qo.FlQo;
@@ -8,6 +9,7 @@ import com.isoler.studynav.business.link.model.bean.Link;
 import com.isoler.studynav.business.link.model.qo.LinkPageQo;
 import com.isoler.studynav.business.link.model.qo.LinkQo;
 import com.isoler.studynav.business.link.service.ILinkService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -40,8 +42,10 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements IL
 
     @Override
     public Link saveOrUpdateLink(Link link) {
+        if (StringUtils.isBlank(link.getId())) {
+            link.setXh(IdWorker.getId());
+        }
         this.saveOrUpdate(link);
-        baseMapper.updateMaxXh(link.getId());
         return link;
     }
 
@@ -54,7 +58,7 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements IL
     public void switchXh(String one, String other) {
         Link oneFl = this.getById(one);
         Link otherFl = this.getById(other);
-        Integer tmp = oneFl.getXh();
+        Long tmp = oneFl.getXh();
         oneFl.setXh(otherFl.getXh());
         otherFl.setXh(tmp);
         this.updateById(oneFl);

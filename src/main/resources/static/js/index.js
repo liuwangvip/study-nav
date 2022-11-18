@@ -211,9 +211,6 @@ var vm = new Vue({
     computed: {},
 
     methods: {
-        returnIndex: function () {
-            window.location.href = "index";
-        },
         /**
          * 鼠标移入
          */
@@ -265,12 +262,19 @@ var vm = new Vue({
             }
             this.leftNav.listItems[i].classList.add('is-selected')
         },
-        handleSelect(key, keyPath) {
-            this.navType = key;
-            console.log(key);
-        },
         showMore: function () {
             this.showMoreDialog = !this.showMoreDialog;
+        },
+        /**
+         * 访问链接
+         * @param url
+         */
+        visitLink: function (url) {
+            if (url && (url.startsWith("http://") || url.startsWith("https://"))) {
+                window.open(url, '_blank');
+                return;
+            }
+            window.open("http://" + url, '_blank');
         },
         /**
          * 获取分类列表

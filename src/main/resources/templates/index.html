@@ -15,18 +15,7 @@
         <el-aside width="auto">
             <div class="sidebar" @mouseenter="sidebarMouseEnter" @mouseleave="sidebarMouseLeave">
                 <div class="menu-head">
-                    <div class="fd-logo" @click="returnIndex">
-                        <el-avatar
-                                style="vertical-align: middle;background-color: transparent"
-                                :size="40"
-                                shape="square"
-                                fit="fill"
-                                src="img/logos/nav.png">
-                        </el-avatar>
-                    </div>
-                    <div class="fd-title">
-                        Hello World
-                    </div>
+                    <a href="index"><i class="iconfont icon-daohang"></i><span>Hello World</span></a>
                 </div>
                 <div class="menu-body">
                     <ul class="menu-list" @mouseenter="menuMouseEnter" @mouseleave="menuMouseLeave">
@@ -37,40 +26,45 @@
                             <a :href="'#'+item.id"><i class="iconfont" :class="item.icon"></i><span>{{item.name}}</span></a>
                         </li>
                         <li class="menu-list-label"><span>文章</span></li>
-                        <li class="menu-list-item" :class="[100==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
+                        <li class="menu-list-item"
+                            :class="[100==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
                             @click="leftNav.activeIndex=100">
-                            <a href="#"><i class="iconfont icongongjuxiang"></i><span>热门</span></a>
+                            <a href="#"><i class="iconfont icon-remen"></i><span>热门</span></a>
                         </li>
-                        <li class="menu-list-item" :class="[101==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
+                        <li class="menu-list-item"
+                            :class="[101==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
                             @click="leftNav.activeIndex=101">
-                            <a href="#"><i class="iconfont icongongzuoliuchengtu"></i><span>技术文档</span></a>
+                            <a href="#"><i class="iconfont icon-kexuejishu-"></i><span>技术文档</span></a>
                         </li>
-                        <li class="menu-list-item" :class="[102==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
+                        <li class="menu-list-item"
+                            :class="[102==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
                             @click="leftNav.activeIndex=102">
-                            <a href="#"><i class="iconfont iconpiliangchuli"></i><span>项目规范</span></a>
+                            <a href="#"><i class="iconfont icon-shejiguifan"></i><span>项目规范</span></a>
                         </li>
 
                         <li class="menu-list-label"><span>生态服务</span></li>
-                        <li class="menu-list-item" :class="[300==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
+                        <li class="menu-list-item"
+                            :class="[300==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
                             @click="leftNav.activeIndex=300">
-                            <a href="#"><i class="iconfont iconapplication"></i><span>常用工具</span></a>
+                            <a href="#"><i class="iconfont icon-gongju1"></i><span>常用工具</span></a>
                         </li>
-                        <li class="menu-list-item" :class="[301==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
+                        <li class="menu-list-item"
+                            :class="[301==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
                             @click="leftNav.activeIndex=301">
-                            <a href="#"><i class="iconfont icongongjuxiang"></i><span>休闲</span></a>
+                            <a href="#"><i class="iconfont icon-ziyuan"></i><span>休闲</span></a>
                         </li>
                         <li class="menu-list-label"><span>后台管理</span></li>
                         <li class="menu-list-item" class="menu-list-item">
-                            <a href="setting"><i class="iconfont icongongjuxiang"></i><span>网址管理</span></a>
+                            <a href="setting"><i class="iconfont icon-lianjie"></i><span>网址管理</span></a>
                         </li>
                         <li class="menu-list-item" class="menu-list-item">
-                            <a href="#"><i class="iconfont icongongjuxiang"></i><span>文章管理</span></a>
+                            <a href="#"><i class="iconfont icon-kexuejishu-"></i><span>文章管理</span></a>
                         </li>
                     </ul>
                 </div>
                 <div class="menu-foot">
                     <div class="menu-foot-button" @click="toggleLeftNav">
-                        <i class="iconfont iconindent"></i><i class="iconfont iconoutdent"></i>
+                        <i class="iconfont icon-fenlei"></i><i class="iconfont icon-fenlei"></i>
                     </div>
                 </div>
             </div>
@@ -80,17 +74,19 @@
                 <div class="fd-head-title">
                     <div></div>
                     <div></div>
-                    <div class="fd-head-more" @click="showMore">
-                        <svg t="1664568892984" class="icon" viewBox="0 0 1024 1024" version="1.1"
-                             xmlns="http://www.w3.org/2000/svg" p-id="12289" width="16" height="16">
-                            <path d="M197.844997 512m-74.694189 0a72.993 72.993 0 1 0 149.388379 0 72.993 72.993 0 1 0-149.388379 0ZM512 512m-74.694189 0a72.993 72.993 0 1 0 149.388379 0 72.993 72.993 0 1 0-149.388379 0ZM826.155003 512m-74.694189 0a72.993 72.993 0 1 0 149.388379 0 72.993 72.993 0 1 0-149.388379 0Z"
-                                  p-id="12290"></path>
-                        </svg>
+                    <div class="fd-right">
+                        <div class="fd-auto-search">
+                            <button><i class="iconfont icon-31sousuo"></i></button>
+                            <input type="text" placeholder="搜索" autocomplete="off">
+                        </div>
+                        <div class="fd-head-more" @click="showMore">
+                            <i class="iconfont iconsearch"></i>
+                        </div>
                     </div>
                 </div>
             </el-header>
-            <el-container>
-                <el-header class="fd-link-header" height="200px">
+            <el-container style="overflow:auto">
+                <el-header class="fd-link-header" height="100px">
                     <div class="hero-circle">
                         <div class="hero-face">
                             <div id="hour" ref="hour" class="hero-hour"></div>
@@ -98,15 +94,15 @@
                             <div id="second" ref="second" class="hero-second"></div>
                         </div>
                     </div>
-                    <div class="fd-search">
-                        <el-input @keyup.enter.native="search" size="medium"
-                                  prefix-icon="el-icon-search"
-                                  placeholder="搜索" v-model="searchText"
-                                  class="input-with-select">
-                        </el-input>
-                    </div>
+<#--                    <div class="fd-search">-->
+<#--                        <el-input @keyup.enter.native="search" size="medium"-->
+<#--                                  prefix-icon="el-icon-search"-->
+<#--                                  placeholder="搜索" v-model="searchText"-->
+<#--                                  class="input-with-select">-->
+<#--                        </el-input>-->
+<#--                    </div>-->
                 </el-header>
-                <el-main style="padding: 0px 10px">
+                <el-main style="padding: 0px 10px;overflow: visible">
                     <div class="fd-link-container">
                         <template v-for="(item,index) in fl.data" :key="index">
                             <div class="fd-fl-container" :id="item.id">
@@ -116,24 +112,26 @@
                                 </div>
                                 <div class="fd-fl-main">
                                     <template v-for="(subItem,subIndex) in item.links" :key="subIndex">
-                                        <el-card class="fd-link-card" shadow="hover">
+                                        <el-card @click.native="visitLink(subItem.url)" class="fd-link-card" shadow="hover">
                                             <div slot="header" class="fd-link-card-header">
                                                 <div class="fd-link-card-header-img">
                                                     <el-avatar
                                                             style="vertical-align: middle;background-color: transparent"
-                                                            :size="50"
+                                                            :size="30"
                                                             fit="fill"
                                                             :src="subItem.logo" @error="true">
                                                         <img src="img/logos/error.png">
                                                     </el-avatar>
                                                 </div>
-                                                <div class="fd-link-card-header-title"
-                                                     :title="subItem.name">
+                                                <div class="fd-link-card-header-title">
                                                     {{subItem.name}}
                                                 </div>
                                             </div>
                                             <div class="fd-link-card-content">
-                                                <p class="fd-link-card-content-text">{{subItem.description}}</p>
+                                                <el-tooltip class="item" effect="light" :content="subItem.description" placement="bottom" popper-class="fd-tip">
+                                                    <p class="fd-link-card-content-text">{{subItem.description}}</p>
+                                                </el-tooltip>
+
                                             </div>
                                         </el-card>
                                     </template>

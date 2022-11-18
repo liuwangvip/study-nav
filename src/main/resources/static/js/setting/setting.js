@@ -10,35 +10,11 @@ var vm = new Vue({
                 menulist: {},
                 listItems: {}
             },
-            screenWidth: document.body.clientWidth,
-            timer: false,
-            isCollapse: false,
-            showMoreDialog: false,
             searchText: "",
-            searchMoreText: "",
-            navType: 'fl',
             operateType: 'view',
-            //分类表单
-            form_fl: {
-                name: "",
-                icon: "",
-                description: ""
-            },
-            //网址表单
-            form_link: {
-                flId: "",
-                name: "",
-                url: "",
-                logo: "",
-                description: ""
-            },
             //分类
             fl: {
                 dialogFormVisible: false,
-                parentData: [
-                    {id: "11111", name: "dev"},
-                    {id: "22222", name: "feature"}
-                ],
                 //分类表单
                 form: {
                     name: "",

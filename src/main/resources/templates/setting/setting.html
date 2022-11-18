@@ -15,28 +15,17 @@
         <el-aside width="auto">
             <div class="sidebar" @mouseenter="sidebarMouseEnter" @mouseleave="sidebarMouseLeave">
                 <div class="menu-head">
-                    <div class="fd-logo" @click="returnIndex">
-                        <el-avatar
-                                style="vertical-align: middle;background-color: transparent"
-                                :size="40"
-                                shape="square"
-                                fit="fill"
-                                src="img/logos/nav.png">
-                        </el-avatar>
-                    </div>
-                    <div class="fd-title">
-                        Hello World
-                    </div>
+                    <a href="index"><i class="iconfont icon-daohang"></i><span>Hello World</span></a>
                 </div>
                 <div class="menu-body">
                     <ul class="menu-list" @mouseenter="menuMouseEnter" @mouseleave="menuMouseLeave">
                         <li class="menu-list-item" :class="['fl'==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
                             @click="leftNav.activeIndex='fl'">
-                            <a href="#"><i class="iconfont icongongzuoliuchengtu"></i><span>分类</span></a>
+                            <a href="#"><i class="iconfont icon-fenlei"></i><span>分类</span></a>
                         </li>
                         <li class="menu-list-item" :class="['link'==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
                             @click="leftNav.activeIndex='link'">
-                            <a href="#"><i class="iconfont iconpiliangchuli"></i><span>网址</span></a>
+                            <a href="#"><i class="iconfont icon-lianjie"></i><span>网址</span></a>
                         </li>
 
                     </ul>
@@ -194,7 +183,9 @@
                 <el-input v-model="fl.form.name" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="图标" prop="icon">
-                <el-input v-model="fl.form.icon" autocomplete="off"></el-input>
+                <el-input v-model="fl.form.icon" autocomplete="off">
+                    <i slot="append" class="iconfont" :class="fl.form.icon"></i>
+                </el-input>
             </el-form-item>
             <el-form-item label="父分类" prop="parentId">
                 <el-select v-model="fl.form.parentId" placeholder="请选择父分类">

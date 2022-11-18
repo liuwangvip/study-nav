@@ -46,7 +46,7 @@ public class Fl extends BaseEntity {
 
     @ApiModelProperty(value = "排序")
     @TableField("n_order")
-    private Integer xh;
+    private Long xh;
 
     @ApiModelProperty(value = "网址列表")
     @TableField(exist = false)
