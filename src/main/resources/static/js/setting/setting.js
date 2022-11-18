@@ -259,7 +259,7 @@ var vm = new Vue({
             };
             axios.post("link/page", param).then(function (res) {
                 _this.link.pageData = res.data.result.records;
-                _this.linktotal = res.data.result.total;
+                _this.link.total = res.data.result.total;
             }).catch(function (e) {
                 console.log(e);
                 _this.$message.error(e.response.data.message || "获取网址列表失败,请联系管理员!");

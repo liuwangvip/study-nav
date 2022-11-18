@@ -69,11 +69,22 @@
                             </div>
                         </div>
                         <el-table :data="fl.pageData" stripe style="width: 100%">
+                            <el-table-column type="index" width="50"></el-table-column>
                             <el-table-column prop="name" label="分类名称" width="180"></el-table-column>
                             <el-table-column prop="icon" label="图标" width="180"></el-table-column>
                             <el-table-column prop="description" label="描述"></el-table-column>
-                            <el-table-column fixed="right" label="操作" width="140">
+                            <el-table-column fixed="right" align="center" label="操作" width="200">
                                 <template slot-scope="scope">
+                                    <el-tooltip class="operate-item" effect="dark" content="上移" placement="bottom-end">
+                                        <el-link :underline="false" @click="handleLinkView(scope.row)"
+                                                 icon="el-icon-bottom">
+                                        </el-link>
+                                    </el-tooltip>
+                                    <el-tooltip class="operate-item" effect="dark" content="下移" placement="bottom-end">
+                                        <el-link :underline="false" @click="handleLinkView(scope.row)"
+                                                 icon="el-icon-top">
+                                        </el-link>
+                                    </el-tooltip>
                                     <el-tooltip class="operate-item" effect="dark" content="查看" placement="bottom-end">
                                         <el-link :underline="false" @click="handleFlView(scope.row)"
                                                  icon="el-icon-view">
@@ -129,13 +140,25 @@
                             </div>
                         </div>
                         <el-table :data="link.pageData" stripe style="width: 100%">
+                            <el-table-column type="index" width="50"></el-table-column>
                             <el-table-column prop="flName" label="网址所属分类" width="180"></el-table-column>
                             <el-table-column prop="name" label="网址名称"></el-table-column>
                             <el-table-column prop="url" label="网址链接" width="180"></el-table-column>
                             <el-table-column prop="logo" label="网址logo" width="180"></el-table-column>
                             <el-table-column prop="description" label="描述"></el-table-column>
-                            <el-table-column fixed="right" label="操作" width="140">
+                            <el-table-column fixed="right" align="center" label="操作" width="200">
                                 <template slot-scope="scope">
+                                    <el-tooltip class="operate-item" effect="dark" content="上移" placement="bottom-end">
+                                        <el-link :underline="false" @click="handleLinkView(scope.row)"
+                                                 icon="el-icon-bottom">
+                                        </el-link>
+                                    </el-tooltip>
+                                    <el-tooltip class="operate-item" effect="dark" content="下移" placement="bottom-end">
+                                        <el-link :underline="false" @click="handleLinkView(scope.row)"
+                                                 icon="el-icon-top">
+                                        </el-link>
+                                    </el-tooltip>
+
                                     <el-tooltip class="operate-item" effect="dark" content="查看" placement="bottom-end">
                                         <el-link :underline="false" @click="handleLinkView(scope.row)"
                                                  icon="el-icon-view">
@@ -157,12 +180,12 @@
                     <el-footer class="fd-main-footer" height="50px">
                         <el-pagination
                                 small="true"
-                                @size-change="handleFlSizeChange"
-                                @current-change="handleFlPageChange"
-                                :current-page="fl.current"
+                                @size-change="handleLinkSizeChange"
+                                @current-change="handleLinkPageChange"
+                                :current-page="link.current"
                                 :page-sizes="[10, 20, 50]"
-                                :page-size="fl.size"
-                                :total="fl.total"
+                                :page-size="link.size"
+                                :total="link.total"
                                 layout="total, prev, pager, next, sizes">
                         </el-pagination>
                     </el-footer>
