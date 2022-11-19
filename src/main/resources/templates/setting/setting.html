@@ -19,6 +19,7 @@
                 </div>
                 <div class="menu-body">
                     <ul class="menu-list" @mouseenter="menuMouseEnter" @mouseleave="menuMouseLeave">
+                        <li class="menu-list-label"><span>后台管理</span></li>
                         <li class="menu-list-item" :class="['fl'==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
                             @click="leftNav.activeIndex='fl'">
                             <a href="#"><i class="iconfont icon-fenlei"></i><span>分类</span></a>
@@ -32,7 +33,7 @@
                 </div>
                 <div class="menu-foot">
                     <div class="menu-foot-button" @click="toggleLeftNav">
-                        <i class="iconfont iconindent"></i><i class="iconfont iconoutdent"></i>
+                        <i class="iconfont icon-fenlei"></i><i class="iconfont icon-fenlei"></i>
                     </div>
                 </div>
             </div>
