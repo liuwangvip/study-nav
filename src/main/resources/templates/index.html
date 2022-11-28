@@ -72,15 +72,23 @@
         <el-container>
             <el-header class="fd-head" height="40px">
                 <div class="fd-head-title">
-                    <div></div>
+                    <div style="color: #6E7B6C;font-size: 14px;width: 200px;">{{currentDate}}</div>
                     <div></div>
                     <div class="fd-right">
                         <div class="fd-auto-search">
                             <button><i class="iconfont icon-31sousuo"></i></button>
-                            <input type="text" placeholder="搜索" autocomplete="off">
+                            <input @keyup.enter="search" v-model="searchText" type="text" placeholder="搜索"
+                                   autocomplete="off">
                         </div>
-                        <div class="fd-head-more" @click="showMore">
-                            <i class="iconfont iconsearch"></i>
+                        <div class="fd-message">
+                            <i style="font-size: 24px;color: #409eff;"
+                               class="iconfont icon-jisuanqilishuai-xianxing-xi"></i>
+                        </div>
+                        <div class="fd-message">
+                            <i style="font-size: 24px;" class="iconfont icon-xiaoxi"></i>
+                        </div>
+                        <div class="fd-message">
+                            <i style="font-size: 24px;" class="iconfont icon-news-info"></i>
                         </div>
                     </div>
                 </div>
@@ -94,15 +102,9 @@
                             <div id="second" ref="second" class="hero-second"></div>
                         </div>
                     </div>
-<#--                    <div class="fd-search">-->
-<#--                        <el-input @keyup.enter.native="search" size="medium"-->
-<#--                                  prefix-icon="el-icon-search"-->
-<#--                                  placeholder="搜索" v-model="searchText"-->
-<#--                                  class="input-with-select">-->
-<#--                        </el-input>-->
-<#--                    </div>-->
                 </el-header>
                 <el-main style="padding: 0px 10px;overflow: visible">
+
                     <div class="fd-link-container">
                         <template v-for="(item,index) in fl.data" :key="index">
                             <div class="fd-fl-container" :id="item.id">
@@ -110,31 +112,33 @@
                                     <i class="iconfont" :class="item.icon"></i>
                                     <span slot="title" style="color: #555">{{item.name}}</span>
                                 </div>
-                                <div class="fd-fl-main">
-                                    <template v-for="(subItem,subIndex) in item.links" :key="subIndex">
-                                        <el-card @click.native="visitLink(subItem.url)" class="fd-link-card" shadow="hover">
-                                            <div slot="header" class="fd-link-card-header">
-                                                <div class="fd-link-card-header-img">
+                                <div class="fd-link-main">
+                                    <el-row :gutter="20">
+                                        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6"
+                                                v-for="(subItem,subIndex) in item.links" :key="subIndex">
+                                            <div class="fd-link-item" class="grid-content bg-purple-dark" @click="visitLink(subItem.url)">
+                                                <div class="fd-link-logo">
                                                     <el-avatar
                                                             style="vertical-align: middle;background-color: transparent"
-                                                            :size="30"
+                                                            :size="40"
                                                             fit="fill"
                                                             :src="subItem.logo" @error="true">
                                                         <img src="img/logos/error.png">
                                                     </el-avatar>
                                                 </div>
-                                                <div class="fd-link-card-header-title">
-                                                    {{subItem.name}}
+                                                <div class="fd-link-item-main">
+                                                    <div class="fd-link-title">{{subItem.name}}</div>
+                                                    <div class="fd-link-desc">
+                                                        <el-tooltip class="item" effect="dark"
+                                                                    :content="subItem.description"
+                                                                    placement="bottom" popper-class="fd-tip">
+                                                            <p class="fd-link-desc-text">{{subItem.description}}</p>
+                                                        </el-tooltip>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="fd-link-card-content">
-                                                <el-tooltip class="item" effect="light" :content="subItem.description" placement="bottom" popper-class="fd-tip">
-                                                    <p class="fd-link-card-content-text">{{subItem.description}}</p>
-                                                </el-tooltip>
-
-                                            </div>
-                                        </el-card>
-                                    </template>
+                                        </el-col>
+                                    </el-row>
                                 </div>
                             </div>
                         </template>

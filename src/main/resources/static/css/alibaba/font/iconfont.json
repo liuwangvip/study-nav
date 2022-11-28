@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1866721",
+      "name": "49计算器、利率-线性-细",
+      "font_class": "jisuanqilishuai-xianxing-xi",
+      "unicode": "e915",
+      "unicode_decimal": 59669
+    },
+    {
+      "icon_id": "13872424",
+      "name": "消息",
+      "font_class": "xiaoxi",
+      "unicode": "e654",
+      "unicode_decimal": 58964
+    },
+    {
+      "icon_id": "18170403",
+      "name": "消息,信息",
+      "font_class": "news-info",
+      "unicode": "e9b5",
+      "unicode_decimal": 59829
+    },
+    {
       "icon_id": "201571",
       "name": "3.1-搜索",
       "font_class": "31sousuo",

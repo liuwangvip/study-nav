@@ -20,11 +20,13 @@
                 <div class="menu-body">
                     <ul class="menu-list" @mouseenter="menuMouseEnter" @mouseleave="menuMouseLeave">
                         <li class="menu-list-label"><span>后台管理</span></li>
-                        <li class="menu-list-item" :class="['fl'==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
+                        <li class="menu-list-item"
+                            :class="['fl'==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
                             @click="leftNav.activeIndex='fl'">
                             <a href="#"><i class="iconfont icon-fenlei"></i><span>分类</span></a>
                         </li>
-                        <li class="menu-list-item" :class="['link'==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
+                        <li class="menu-list-item"
+                            :class="['link'==leftNav.activeIndex ? 'is-selected':'','menu-list-item']"
                             @click="leftNav.activeIndex='link'">
                             <a href="#"><i class="iconfont icon-lianjie"></i><span>网址</span></a>
                         </li>
@@ -69,7 +71,7 @@
                                 </el-tooltip>
                             </div>
                         </div>
-                        <el-table :data="fl.pageData" stripe style="width: 100%">
+                        <el-table :data="fl.pageData" stripe style="width: 100%" height="calc(100% - 40px)">
                             <el-table-column type="index" width="50"></el-table-column>
                             <el-table-column prop="name" label="分类名称" width="180"></el-table-column>
                             <el-table-column prop="icon" label="图标" width="180"></el-table-column>
@@ -140,7 +142,7 @@
                                 </el-tooltip>
                             </div>
                         </div>
-                        <el-table :data="link.pageData" stripe style="width: 100%">
+                        <el-table :data="link.pageData" stripe style="width: 100%" height="calc(100% - 40px)">
                             <el-table-column type="index" width="50"></el-table-column>
                             <el-table-column prop="flName" label="网址所属分类" width="180"></el-table-column>
                             <el-table-column prop="name" label="网址名称"></el-table-column>
@@ -208,7 +210,11 @@
             </el-form-item>
             <el-form-item label="图标" prop="icon">
                 <el-input v-model="fl.form.icon" autocomplete="off">
-                    <i slot="append" class="iconfont" :class="fl.form.icon"></i>
+                    <div style="cursor: pointer;width: 50px;height: 35px" slot="append"
+                         @click="fl.dialogIconVisible = true">
+                        <i style="font-size: 32px;line-height: 40px" class="iconfont"
+                           :class="fl.form.icon"></i>
+                    </div>
                 </el-input>
             </el-form-item>
             <el-form-item label="父分类" prop="parentId">
@@ -240,7 +246,16 @@
                 <el-input v-model="link.form.url" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="网址logo" prop="logo">
-                <el-input v-model="link.form.logo" autocomplete="off"></el-input>
+                <el-input v-model="link.form.logo" autocomplete="off">
+                    <el-avatar @click.native="link.dialogLogoVisible = true" slot="append"
+                               style="vertical-align: middle;background-color: transparent"
+                               :size="35"
+                               fit="fill"
+                               :src="link.form.logo" @error="true">
+                        <img src="img/logos/error.png">
+                    </el-avatar>
+                    <#--                    <img @click="link.dialogLogoVisible = true" slot="append" style="height: 35px;width: 35px;cursor: pointer" :src="link.form.logo"></img>-->
+                </el-input>
             </el-form-item>
             <el-form-item label="描述" prop="description">
                 <el-input type="textarea" v-model="link.form.description"></el-input>
@@ -250,6 +265,38 @@
             <el-button @click="link.dialogFormVisible = false">取 消</el-button>
             <el-button type="primary" @click="saveLink('linkForm')">保存</el-button>
         </div>
+    </el-dialog>
+
+    <el-dialog title="icon" :visible.sync="fl.dialogIconVisible">
+        <el-row :gutter="20">
+            <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2"
+                    style="width: 50px;margin-top: 10px;"
+                    v-for="(item,index) in fl.icons" :key="index">
+                <div @click="choseIcon(item)" class="fd-col-log">
+                    <i style="font-size: 32px;line-height: 40px" class="iconfont"
+                       :class="item"></i>
+                </div>
+            </el-col>
+        </el-row>
+    </el-dialog>
+
+    <el-dialog title="logo" :visible.sync="link.dialogLogoVisible">
+        <el-row :gutter="20">
+            <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2"
+                    style="width: 50px;margin-top: 10px;"
+                    v-for="(item,index) in link.logos" :key="index">
+                <div @click="choseLogo(item)" class="fd-col-log">
+                    <el-avatar
+                            style="vertical-align: middle;background-color: transparent"
+                            :size="40"
+                            shape="square"
+                            fit="fill"
+                            :src="item" @error="true">
+                        <img src="img/logos/error.png">
+                    </el-avatar>
+                </div>
+            </el-col>
+        </el-row>
     </el-dialog>
 </div>
 </body>

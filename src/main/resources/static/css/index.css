@@ -92,90 +92,11 @@ body {
     border-right: solid 1px #393838;
 }
 
-.fd-link-container {
-    height: calc(100vh - 400px);
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: start;
-}
-
-.fd-fl-container {
-    padding-top: 20px;
-    width: 100%;
-}
-
-.fd-fl-container .fd-fl-title {
-    padding-left: 10px;
-    color: #555;
-    /*font-weight: bold;*/
-}
-
-.fd-fl-container .fd-fl-main {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-
-.fd-link-card {
-    width: 20%;
-    min-width: 250px;
-    height: 100px;
-    padding: 0px;
-    margin: 10px 10px;
-    background-color: #FFF;
-    cursor: pointer;
-}
-
-
-.fd-link-card .el-card__header {
-    padding: 0px;
-}
-
-.fd-link-card .el-card__body {
-    padding: 5px 20px;
-}
-
-
-.fd-link-card-header {
-    padding: 5px 10px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.fd-link-card-header-title {
-    color: #373e4a;
-    font-size: 16px;
-    font-weight: bold;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    max-width: 200px;
-    overflow: hidden;
-}
-
-.fd-link-logo {
-    padding: 7px 0px;
-    vertical-align: middle;
-    border-radius: 50%;
-}
-
-.fd-link-header {
-    padding: 10px 20px;
-    text-align: center;
-}
 
 .hero-circle {
     width: 120px;
     height: 120px;
-    margin: 0 auto;
+    margin: 5px auto;
     position: relative;
     border: 4px solid #fff;
     border-radius: 50%;
@@ -243,29 +164,97 @@ body {
 }
 
 
-.fd-search {
-    padding: 10px 0px;
-    margin: 0 auto;
-    width: 60%;
+.fd-link-container {
+    height: calc(100vh - 400px);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: start;
+}
+
+.fd-fl-container {
+    padding-top: 20px;
+    width: 100%;
+}
+
+.fd-fl-container .fd-fl-title {
+    padding-left: 10px;
+    color: #555;
+    /*font-weight: bold;*/
 }
 
 
-.fd-link-card-content {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+.fd-link-main {
+
+}
+
+.fd-link-main .fd-link-item {
+    height: 80px;
+    margin-top: 20px;
+    border-radius: 4px;
+    border: 1px solid #EBEEF5;
+    background-color: #FFF;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.fd-link-main .fd-link-item:focus, .fd-link-main .fd-link-item:hover {
+    transform: translateY(-6px);
+    -webkit-transform: translateY(-6px);
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+    -webkit-box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+
+.fd-link-item .fd-link-logo {
+    position: absolute;
+    left: 10px;
+}
+
+.fd-link-item .fd-link-item-main {
+    padding-left: 60px;
+    width: 100%;
+}
+
+.fd-link-item .fd-link-item-main .fd-link-title {
+    padding: 5px 10px;
+    height: 20px;
+    border-bottom: 1px solid #EBEEF5;
+    color: #373e4a;
+    font-size: 16px;
+    font-weight: bold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 200px;
     overflow: hidden;
+
 }
 
-.fd-link-card-content .fd-link-card-content-text {
+.fd-link-item .fd-link-item-main .fd-link-desc {
+
+}
+
+.fd-link-desc .fd-link-desc-text {
+    height: 40px;
     color: #979898;
     margin: 0px;
     white-space: pre-line;
     font-size: 13px;
-    height: 50px;
+    padding: 5px 60px 5px 10px;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
-.fd-tip{
+.fd-tip {
     width: 200px;
     white-space: pre-line;
 }
@@ -583,6 +572,7 @@ li.is-selected > a > i, li.is-selected > a > span {
 
 
 .fd-auto-search {
+    padding-right: 10px;
     width: 30px;
     height: 30px;
     border-radius: 25px;
@@ -590,6 +580,7 @@ li.is-selected > a > i, li.is-selected > a > span {
     align-items: center;
     justify-content: flex-start;
     transition: 1s;
+    cursor: pointer;
 }
 
 .fd-auto-search input {
@@ -631,4 +622,11 @@ li.is-selected > a > i, li.is-selected > a > span {
 .fd-auto-search:hover input::-webkit-input-placeholder {
     color: #c3d3e5;
     font-size: 12px;
+}
+
+.fd-message {
+    line-height: 40px;
+    padding: 0px 10px;
+    font-size: 24px;
+    cursor: pointer;
 }

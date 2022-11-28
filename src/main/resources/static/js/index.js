@@ -2,6 +2,7 @@ var vm = new Vue({
     el: '#app',
     data: function () {
         return {
+            currentDate:moment().locale('zh-cn').format('dddd YYYY-MM-DD HH:mm:ss'),
             leftNav: {
                 // 是否持续展开
                 isExpand: [0, 0],
@@ -314,6 +315,12 @@ var vm = new Vue({
             this.$refs.hour.style.transform = "rotate(" + hour + "deg)"
             this.$refs.minute.style.transform = "rotate(" + minute + "deg)"
             this.$refs.second.style.transform = "rotate(" + second + "deg)"
+        },
+        updateCurrentDate:function (){
+            var _this =this;
+            setInterval(function (){
+                _this.currentDate = moment().locale('zh-cn').format('dddd YYYY-MM-DD HH:mm:ss');
+            },1000)
         }
     },
     created: function () {
@@ -322,6 +329,7 @@ var vm = new Vue({
     mounted: function () {
         var _this = this;
         this.timedUpdate();
+        this.updateCurrentDate();
         this.leftNav.sidebar = document.querySelectorAll('.sidebar')
         this.leftNav.menulist = document.querySelectorAll('.menu-list')
         this.leftNav.listItems = document.querySelectorAll('.menu-list-item')
