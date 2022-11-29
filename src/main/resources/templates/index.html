@@ -93,7 +93,7 @@
                     </div>
                 </div>
             </el-header>
-            <el-container style="overflow:auto">
+            <el-container style="overflow:auto;margin-bottom: 20px">
                 <el-header class="fd-link-header" height="100px">
                     <div class="hero-circle">
                         <div class="hero-face">
@@ -116,7 +116,8 @@
                                     <el-row :gutter="20">
                                         <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6"
                                                 v-for="(subItem,subIndex) in item.links" :key="subIndex">
-                                            <div class="fd-link-item" class="grid-content bg-purple-dark" @click="visitLink(subItem.url)">
+                                            <div class="fd-link-item" class="grid-content bg-purple-dark"
+                                                 @click="visitLink(subItem.url)">
                                                 <div class="fd-link-logo">
                                                     <el-avatar
                                                             style="vertical-align: middle;background-color: transparent"
