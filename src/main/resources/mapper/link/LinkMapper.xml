@@ -65,7 +65,7 @@
                 and (link.c_name like #{searchText} or link.c_description like #{searchText})
             </if>
         </where>
-        order by n_order asc
+        order by fl.n_order asc,link.n_order asc
     </select>
 
 </mapper>

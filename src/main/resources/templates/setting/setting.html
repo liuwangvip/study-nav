@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>网址导航-管理页面</title>
+    <title>HI-后台</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="css/element/element.css">
     <link rel="stylesheet" href="css/setting/setting.css"/>
@@ -149,7 +149,8 @@
                         </div>
                         <el-table :data="link.pageData" stripe style="width: 100%" height="calc(100% - 40px)">
                             <el-table-column type="index" width="50"></el-table-column>
-                            <el-table-column prop="flName" label="网址所属分类" width="200">
+                            <el-table-column prop="flName" label="网址所属分类" width="200"></el-table-column>
+                            <el-table-column prop="name" label="网址名称">
                                 <template slot-scope="scope">
                                     <el-avatar
                                             style="vertical-align: middle;background-color: transparent"
@@ -158,10 +159,9 @@
                                             :src="scope.row.logo" @error="true">
                                         <img src="img/logos/error.png">
                                     </el-avatar>
-                                    <span>{{scope.row.flName}}</span>
+                                    <span>{{scope.row.name}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="name" label="网址名称"></el-table-column>
                             <el-table-column prop="url" label="网址链接" width="180"></el-table-column>
                             <el-table-column prop="description" label="描述"></el-table-column>
                             <el-table-column fixed="right" align="center" label="操作" width="200">
