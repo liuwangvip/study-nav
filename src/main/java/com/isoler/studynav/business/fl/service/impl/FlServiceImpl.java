@@ -1,5 +1,7 @@
 package com.isoler.studynav.business.fl.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -67,5 +69,44 @@ public class FlServiceImpl extends ServiceImpl<FlMapper, Fl> implements IFlServi
         otherFl.setXh(tmp);
         this.updateById(oneFl);
         this.updateById(otherFl);
+    }
+
+    @Override
+    public void moveUp(String id) {
+        Fl one = this.getById(id);
+        QueryWrapper<Fl> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lt("n_order", one.getXh());
+        queryWrapper.orderByDesc("n_order");
+        List<Fl> list = this.list(queryWrapper);
+        if (CollectionUtils.isEmpty(list)) {
+            return;
+        }
+        Fl two = list.get(0);
+        switchXh(one, two);
+    }
+
+    @Override
+    public void moveDown(String id) {
+        Fl one = this.getById(id);
+        QueryWrapper<Fl> queryWrapper = new QueryWrapper<>();
+        queryWrapper.gt("n_order", one.getXh());
+        queryWrapper.orderByAsc("n_order");
+        List<Fl> list = this.list(queryWrapper);
+        if (CollectionUtils.isEmpty(list)) {
+            return;
+        }
+        Fl two = list.get(0);
+        switchXh(one, two);
+    }
+
+    private void switchXh(Fl one, Fl two) {
+        if (two == null) {
+            return;
+        }
+        Long tmp = one.getXh();
+        one.setXh(two.getXh());
+        two.setXh(tmp);
+        this.updateById(one);
+        this.updateById(two);
     }
 }

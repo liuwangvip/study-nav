@@ -69,4 +69,18 @@ public class FlController {
         return CommonResult.success(flService.getById(id));
     }
 
+    @ApiOperation("上移")
+    @PutMapping("up/{id}")
+    public CommonResult<String> moveUpFl(@PathVariable("id") String id) {
+        flService.moveUp(id);
+        return CommonResult.success("移动成功");
+    }
+
+    @ApiOperation("下移")
+    @PutMapping("down/{id}")
+    public CommonResult<String> moveDownFl(@PathVariable("id") String id) {
+        flService.moveDown(id);
+        return CommonResult.success("移动成功");
+    }
+
 }

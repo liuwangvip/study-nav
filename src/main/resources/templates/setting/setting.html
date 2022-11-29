@@ -83,13 +83,13 @@
                             <el-table-column prop="description" label="描述"></el-table-column>
                             <el-table-column fixed="right" align="center" label="操作" width="200">
                                 <template slot-scope="scope">
-                                    <el-tooltip class="operate-item" effect="dark" content="上移" placement="bottom-end">
-                                        <el-link :underline="false" @click="handleLinkView(scope.row)"
+                                    <el-tooltip class="operate-item" effect="dark" content="下移" placement="bottom-end">
+                                        <el-link :underline="false" @click="handleFlMoveDown(scope.row)"
                                                  icon="el-icon-bottom">
                                         </el-link>
                                     </el-tooltip>
-                                    <el-tooltip class="operate-item" effect="dark" content="下移" placement="bottom-end">
-                                        <el-link :underline="false" @click="handleLinkView(scope.row)"
+                                    <el-tooltip class="operate-item" effect="dark" content="上移" placement="bottom-end">
+                                        <el-link :underline="false" @click="handleFlMoveUp(scope.row)"
                                                  icon="el-icon-top">
                                         </el-link>
                                     </el-tooltip>
@@ -166,13 +166,13 @@
                             <el-table-column prop="description" label="描述"></el-table-column>
                             <el-table-column fixed="right" align="center" label="操作" width="200">
                                 <template slot-scope="scope">
-                                    <el-tooltip class="operate-item" effect="dark" content="上移" placement="bottom-end">
-                                        <el-link :underline="false" @click="handleLinkView(scope.row)"
+                                    <el-tooltip class="operate-item" effect="dark" content="下移" placement="bottom-end">
+                                        <el-link :underline="false" @click="handleLinkMoveDown(scope.row)"
                                                  icon="el-icon-bottom">
                                         </el-link>
                                     </el-tooltip>
-                                    <el-tooltip class="operate-item" effect="dark" content="下移" placement="bottom-end">
-                                        <el-link :underline="false" @click="handleLinkView(scope.row)"
+                                    <el-tooltip class="operate-item" effect="dark" content="上移" placement="bottom-end">
+                                        <el-link :underline="false" @click="handleLinkMoveUp(scope.row)"
                                                  icon="el-icon-top">
                                         </el-link>
                                     </el-tooltip>

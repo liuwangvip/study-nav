@@ -62,4 +62,16 @@ public interface ILinkService extends IService<Link> {
      */
     void switchXh(String one, String other);
 
+    /**
+     * 上移
+     * @param id
+     */
+    void moveUp(String id);
+
+    /**
+     * 下移
+     * @param id
+     */
+    void moveDown(String id);
+
 }

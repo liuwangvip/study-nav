@@ -274,6 +274,31 @@ var vm = new Vue({
             this.fl.form = {};
             this.operateType = 'add';
         },
+
+        handleFlMoveDown: function (row) {
+            var _this = this;
+            axios.put("fl/down/" + row.id, {}).then(function (res) {
+                if (res.data.success) {
+                    _this.$message({message: "移动成功", type: 'success'});
+                    _this.loadFlPageData();
+                }
+            }).catch(function (e) {
+                console.log(e);
+                _this.$message.error("移动失败");
+            });
+        },
+        handleFlMoveUp: function (row) {
+            var _this = this;
+            axios.put("fl/up/" + row.id, {}).then(function (res) {
+                if (res.data.success) {
+                    _this.$message({message: "移动成功", type: 'success'});
+                    _this.loadFlPageData();
+                }
+            }).catch(function (e) {
+                console.log(e);
+                _this.$message.error("移动失败");
+            });
+        },
         handleFlView: function (row) {
             this.fl.dialogFormVisible = true;
             this.operateType = 'view';
@@ -392,6 +417,30 @@ var vm = new Vue({
             this.link.dialogFormVisible = true;
             this.link.form = {};
             this.operateType = 'add';
+        },
+        handleLinkMoveDown: function (row) {
+            var _this = this;
+            axios.put("link/down/" + row.id, {}).then(function (res) {
+                if (res.data.success) {
+                    _this.$message({message: "移动成功", type: 'success'});
+                    _this.loadLinkPageData();
+                }
+            }).catch(function (e) {
+                console.log(e);
+                _this.$message.error("移动失败");
+            });
+        },
+        handleLinkMoveUp: function (row) {
+            var _this = this;
+            axios.put("link/up/" + row.id, {}).then(function (res) {
+                if (res.data.success) {
+                    _this.$message({message: "移动成功", type: 'success'});
+                    _this.loadLinkPageData();
+                }
+            }).catch(function (e) {
+                console.log(e);
+                _this.$message.error("移动失败");
+            });
         },
         handleLinkView: function (row) {
             this.link.dialogFormVisible = true;

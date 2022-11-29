@@ -63,4 +63,18 @@ public class LinkController {
         return CommonResult.success(linkService.getById(id));
     }
 
+    @ApiOperation("上移")
+    @PutMapping("up/{id}")
+    public CommonResult<String> moveUpLink(@PathVariable("id") String id) {
+        linkService.moveUp(id);
+        return CommonResult.success("移动成功");
+    }
+
+    @ApiOperation("下移")
+    @PutMapping("down/{id}")
+    public CommonResult<String> moveDownLink(@PathVariable("id") String id) {
+        linkService.moveDown(id);
+        return CommonResult.success("移动成功");
+    }
+
 }
