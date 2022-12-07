@@ -626,7 +626,11 @@ li.is-selected > a > i, li.is-selected > a > span {
 
 .fd-message {
     line-height: 40px;
-    padding: 0px 10px;
+    padding: 0px 5px;
     font-size: 24px;
     cursor: pointer;
+}
+
+.fd-message:last-child {
+    padding-right: 0px;
 }
