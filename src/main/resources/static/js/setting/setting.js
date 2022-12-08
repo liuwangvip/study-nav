@@ -143,6 +143,17 @@ var vm = new Vue({
                     "img/logos/zb.jpg",
                     "img/logos/zentao.png",
                     "img/logos/zhdw.png",
+                    "img/logos/Vue.png",
+                    "img/logos/web-front.png",
+                    "img/logos/elementor.png",
+                    "img/logos/企业微信.png",
+                    "img/logos/公众号.png",
+                    "img/logos/加班.png",
+                    "img/logos/小程序.png",
+                    "img/logos/日报.png",
+                    "img/logos/信息记录.png",
+                    "img/logos/开发.png",
+                    "img/logos/翻译.png",
                 ],
                 // 表单信息
                 form: {
